@@ -1,5 +1,3 @@
-import { Exception } from '#rest/Exception';
+import {Exception} from '#Exception';
 
-export class ResponseException extends Exception {
-
-}
+export class ResponseException extends Exception { }

@@ -1,5 +1,3 @@
-import { ResponseException } from '#rest/exceptions/ResponseException';
+import {ResponseException} from '#exceptions/ResponseException';
 
-export class ClientError extends ResponseException {
-
-}
+export class ClientError extends ResponseException { }
