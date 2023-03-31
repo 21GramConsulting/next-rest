@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next/dist/shared/lib/utils';
+import {NextApiRequest, NextApiResponse} from 'next';
 
 export type DeleteHandler<Selection> = (
   selection: Selection,
   request: NextApiRequest,
-  response: NextApiResponse,
+  response: NextApiResponse
 ) => Promise<unknown>;

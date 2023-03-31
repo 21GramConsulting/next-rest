@@ -1,5 +1,5 @@
 import {Codec} from '@21gram-consulting/ts-codec';
-import {NextApiRequest, NextApiResponse} from 'next/dist/shared/lib/utils';
+import {NextApiRequest, NextApiResponse} from 'next';
 
 export type CreateHandler<Record> = (
   record: Record,

@@ -9,7 +9,7 @@ import {
 } from '#Description';
 import {NextApiHandler} from 'next';
 import {isHttpMethod} from '#Methods';
-import {NextApiRequest, NextApiResponse} from 'next/dist/shared/lib/utils';
+import {NextApiRequest, NextApiResponse} from 'next';
 import {Query as QueryOf} from '#Query';
 import {set as SetCodec} from '@21gram-consulting/ts-codec/lib/json';
 import {Identifier} from '#Identifier';
