@@ -1,4 +1,4 @@
-import {Codec} from '#codec/Codec';
+import {Codec} from '@21gram-consulting/ts-codec';
 import {ReadHandler} from '#handlers/ReadHandler';
 import {Identifier} from '#Identifier';
 import {UpdateHandler} from '#handlers/UpdateHandler';

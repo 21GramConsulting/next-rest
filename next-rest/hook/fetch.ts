@@ -1,8 +1,6 @@
 import {assertResponse} from '#hook/assertResponse/assertResponse';
-import {RawData} from '#codec/Codec';
+import {RawData} from '@21gram-consulting/ts-codec';
 
-// in this particular case it would defeat elegance.
-// eslint-disable-next-line import/no-anonymous-default-export
 export default async function (
   input: RequestInfo | URL,
   init?: RequestInit

@@ -1,4 +1,4 @@
-import {Codec} from '#codec/Codec';
+import {Codec} from '@21gram-consulting/ts-codec';
 import {query as queryCodecFactory, Shape as QueryShape} from '#codec/query';
 import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
@@ -13,10 +13,7 @@ import {Hook} from '#hook/Hook';
 import {___endpoint} from '#___endpoint';
 import useSWR from 'swr';
 import fetch from '#hook/fetch';
-import {set} from '#codec/set';
-import {optional} from '#codec/optional';
-
-// @formatter:off
+import {json} from '@21gram-consulting/ts-codec';
 function createUseHook<
   ID extends string,
   Record extends Identifiable<ID>,
@@ -30,8 +27,8 @@ function createUseHook<
   // @formatter:on
   if (endpoint.startsWith('file://')) endpoint = ___endpoint(endpoint);
   const queryCodec = queryCodecFactory(query);
-  const recordCodec = optional(record);
-  const recordSetCodec = set(record);
+  const recordCodec = json.optional(record);
+  const recordSetCodec = json.set(record);
 
   function useHook(selection: ID): Hook<ID, Record>;
   function useHook(selection?: Query): Hook<ID, Set<Record>>;

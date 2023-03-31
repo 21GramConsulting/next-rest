@@ -11,7 +11,7 @@ import {NextApiHandler} from 'next';
 import {isHttpMethod} from '#Methods';
 import {NextApiRequest, NextApiResponse} from 'next/dist/shared/lib/utils';
 import {Query as QueryOf} from '#Query';
-import {set as SetCodec} from '#codec/set';
+import {set as SetCodec} from '@21gram-consulting/ts-codec/lib/json';
 import {Identifier} from '#Identifier';
 
 type Handler = <Record, ID, Query extends QueryOf<Record>>(
