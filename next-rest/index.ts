@@ -11,4 +11,6 @@ export * from '#Identifier';
 export * from './description';
 export * from './Query';
 
+export * from './nextJsApiEndpointFrom';
+
 export * as exceptions from './exceptions';

@@ -9,7 +9,7 @@ import {
   Selection as SelectionType,
 } from '#hook/Selection';
 import {Hook} from '#hook/Hook';
-import {___endpoint} from '#___endpoint';
+import {nextJsApiEndpointFrom} from '#nextJsApiEndpointFrom';
 import useSWR from 'swr';
 import fetch from '#hook/fetch';
 import {json} from '@21gram-consulting/ts-codec';
@@ -23,7 +23,7 @@ export function createUseHook<
   codec: Codec<Resource>,
   query: RecordShape<Query>
 ): UseHook<ID, Resource, Query, Selection> {
-  if (endpoint.startsWith('file://')) endpoint = ___endpoint(endpoint);
+  if (endpoint.startsWith('file://')) endpoint = nextJsApiEndpointFrom(endpoint);
   const queryCodec = urlSearchParams(query);
   const resourceCodec = json.optional(codec);
   const resourceSetCodec = json.set(codec);
