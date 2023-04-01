@@ -7,6 +7,6 @@
  * grabbing it.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Fetch#parameters
- * @category Convenience
+ * group Convenience
  */
 export type FetchRequest = Parameters<typeof fetch>[0];

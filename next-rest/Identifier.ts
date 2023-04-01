@@ -21,5 +21,6 @@
  * // This is not a valid identifier
  * const healthCheckId: ServiceID = 'foo';
  * ```
+ * @group Core API
  */
 export type Identifier<T> = T extends string ? T : never;

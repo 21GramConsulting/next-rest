@@ -6,7 +6,7 @@ import {FetchRequest} from '#FetchRequest';
  * This class is used to represent an exception thrown by Next-Rest.
  * It's the basetype for all other exceptions.
  * @public
- * @category Exception
+ * @group Exception
  */
 export class Exception extends Error {
   /**
