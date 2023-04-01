@@ -12,19 +12,19 @@ export type Description<Record, ID, Query extends QueryOf<Record>> =
   | Delete<Record, ID>
   | Update<Record, ID>;
 
-type Create<R> = Coded<R> & {create: CreateHandler<R>;};
+type Create<R> = Coded<R> & {create: CreateHandler<R>};
 type ReadSet<R, Q extends QueryOf<R>> = Coded<R> &
-  Queried<R, Q> & {readSet: ReadHandler<Set<R>, Q>;};
+  Queried<R, Q> & {readSet: ReadHandler<Set<R>, Q>};
 type Read<R, ID> = Coded<R> &
-  Identified & {read: ReadHandler<R, Identifier<ID>>;};
+  Identified & {read: ReadHandler<R, Identifier<ID>>};
 type Delete<R, ID> = Coded<R> &
-  Identified & {delete: ReadHandler<R, Identifier<ID>>;};
+  Identified & {delete: ReadHandler<R, Identifier<ID>>};
 type Update<R, ID> = Coded<R> &
-  Identified & {update: UpdateHandler<R, Identifier<ID>>;};
+  Identified & {update: UpdateHandler<R, Identifier<ID>>};
 
-export type Coded<R> = {record: Codec<R>;};
-export type Queried<R, Q extends QueryOf<R>> = {query: Codec<Q>;};
-export type Identified = {idParameterName: string;};
+export type Coded<R> = {record: Codec<R>};
+export type Queried<R, Q extends QueryOf<R>> = {query: Codec<Q>};
+export type Identified = {idParameterName: string};
 
 export const isCreatable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
