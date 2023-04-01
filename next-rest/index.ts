@@ -11,9 +11,4 @@ export * from '#Identifier';
 export * from './description';
 export * from './Query';
 
-/**
- * @summary Provides access to all exceptions.
- * @module
- * @group Exceptions
- */
 export * as exceptions from './exceptions';
