@@ -1,8 +1,4 @@
-import {Codec} from '@21gram-consulting/ts-codec';
-import {
-  urlSearchParams as queryCodecFactory,
-  RecordShape as QueryShape,
-} from '@21gram-consulting/ts-codec';
+import {Codec, RecordShape, urlSearchParams} from '@21gram-consulting/ts-codec';
 import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
 import {Query as QueryOf} from '#Query';
@@ -19,21 +15,21 @@ import fetch from '#hook/fetch';
 import {json} from '@21gram-consulting/ts-codec';
 function createUseHook<
   ID extends string,
-  Record extends Identifiable<ID>,
-  Query extends QueryOf<Record>,
-  Selection extends SelectionType<ID, Record, Query>
+  Resource extends Identifiable<ID>,
+  Query extends QueryOf<Resource>,
+  Selection extends SelectionType<ID, Resource, Query>
 >(
   endpoint: string,
-  record: Codec<Record>,
-  query: QueryShape<Query>
-): UseHook<ID, Record, Query, Selection> {
+  codec: Codec<Resource>,
+  query: RecordShape<Query>
+): UseHook<ID, Resource, Query, Selection> {
   if (endpoint.startsWith('file://')) endpoint = ___endpoint(endpoint);
-  const queryCodec = queryCodecFactory(query);
-  const recordCodec = json.optional(record);
-  const recordSetCodec = json.set(record);
+  const queryCodec = urlSearchParams(query);
+  const resourceCodec = json.optional(codec);
+  const resourceSetCodec = json.set(codec);
 
-  function useHook(selection: ID): Hook<ID, Record>;
-  function useHook(selection?: Query): Hook<ID, Set<Record>>;
+  function useHook(selection: ID): Hook<ID, Resource>;
+  function useHook(selection?: Query): Hook<ID, Set<Resource>>;
   function useHook(selection: any): any {
     const key = isId(selection)
       ? endpoint.concat('/').concat(selection)
@@ -44,8 +40,8 @@ function createUseHook<
     const outputReader = (uri: string) =>
       fetch(uri).then(r =>
         isSelection(selection)
-          ? recordSetCodec.decode(r)
-          : recordCodec.decode(r)
+          ? resourceSetCodec.decode(r)
+          : resourceCodec.decode(r)
       );
 
     const {data, error, isValidating} = useSWR(key, outputReader, {
@@ -55,40 +51,40 @@ function createUseHook<
 
     const output = isValidating ? undefined : error ?? data ?? null;
 
-    async function write(value: Record): Promise<Record & Identified<ID>>;
+    async function write(value: Resource): Promise<Resource & Identified<ID>>;
     async function write(
-      value: Set<Record>
-    ): Promise<Set<Record & Identified<ID>>>;
+      value: Set<Resource>
+    ): Promise<Set<Resource & Identified<ID>>>;
     async function write(value: any): Promise<any> {
       if (value instanceof Set)
         return new Set(await Promise.all(Array.from(value).map(write)));
 
       const payload: RequestInit = {
-        body: recordCodec.encode(value),
+        body: resourceCodec.encode(value),
       };
       if (isUnidentified<ID>(value)) {
         return fetch(endpoint, {...payload, method: 'POST'}).then(r =>
-          recordCodec.decode(r)
+          resourceCodec.decode(r)
         );
       }
 
       const uri = endpoint.concat('/').concat(value.id);
       // TODO: revisit for a slightly more elegant solution.
       // This forced typecast at the time of writing is 100% safe.
-      const freshData = (await outputReader(uri)) as Record | undefined;
+      const freshData = (await outputReader(uri)) as Resource | undefined;
       if (!freshData) {
         return fetch(endpoint, {...payload, method: 'POST'}).then(r =>
-          recordCodec.decode(r)
+          resourceCodec.decode(r)
         );
       }
 
       return fetch(uri, {...payload, method: 'PUT'}).then(r =>
-        recordCodec.decode(r)
+        resourceCodec.decode(r)
       );
     }
 
     async function remove(
-      value: (Record & Identified<ID>) | Set<Record & Identified<ID>>
+      value: (Resource & Identified<ID>) | Set<Resource & Identified<ID>>
     ) {
       if (value instanceof Set) {
         await Promise.all(Array.from(value).map(remove));
@@ -96,7 +92,7 @@ function createUseHook<
       }
 
       const uri = endpoint.concat('/').concat(value.id);
-      await fetch(uri, {method: 'DELETE'}).then(r => recordCodec.decode(r));
+      await fetch(uri, {method: 'DELETE'}).then(r => resourceCodec.decode(r));
     }
 
     return [output, write, remove];

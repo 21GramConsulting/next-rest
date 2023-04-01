@@ -1,1 +1,1 @@
-export type Query<_Record> = {};
+export type Query<_Resource> = {};
