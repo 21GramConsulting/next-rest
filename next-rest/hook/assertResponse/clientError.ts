@@ -1,5 +1,5 @@
 import {FetchRequest} from '#FetchRequest';
-import {ClientError} from '#exceptions/ResponseException/ClientError';
+import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError';
 import {BadRequest} from '#exceptions/ResponseException/ClientError/BadRequest';
 import {PaymentRequired} from '#exceptions/ResponseException/ClientError/PaymentRequired';
 import {Forbidden} from '#exceptions/ResponseException/ClientError/Forbidden';
