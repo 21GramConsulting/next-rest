@@ -6,13 +6,13 @@ import {Hook} from '#hook/Hook';
 // @formatter:off
 export type UseHook<
   ID,
-  Record extends Identifiable<ID>,
-  Query extends QueryOf<Record>,
-  _Selection extends SelectionType<ID, Record, Query>
+  Resource extends Identifiable<ID>,
+  Query extends QueryOf<Resource>,
+  _Selection extends SelectionType<ID, Resource, Query>
 > = {
-  (selection: ID): Hook<ID, Record>;
-  (selection: Query): Hook<ID, Set<Record>>;
-  (): Hook<ID, Set<Record>>;
+  (selection: ID): Hook<ID, Resource>;
+  (selection: Query): Hook<ID, Set<Resource>>;
+  (): Hook<ID, Set<Resource>>;
 };
 
 // @formatter:on
