@@ -11,7 +11,7 @@ import {NextApiHandler} from 'next';
 import {isHttpMethod} from '#Methods';
 import {NextApiRequest, NextApiResponse} from 'next';
 import {Query as QueryOf} from '#Query';
-import {set as SetCodec} from '@21gram-consulting/ts-codec/lib/json';
+import {json} from '@21gram-consulting/ts-codec';
 import {Identifier} from '#Identifier';
 
 type Handler = <Record, ID, Query extends QueryOf<Record>>(
@@ -35,17 +35,14 @@ export const record: Handler = description => async (request, response) => {
         return unsupportedMethod(response, 'Expected a record identifier.', id);
       return await description.read(description.record, id, request, response);
     }
-    // if (parameterCount) {
     if (!isReadSetable(description))
       return unsupportedMethod(response, 'Record has no readSet api.');
     return description.readSet(
-      SetCodec(description.record),
+      json.set(description.record),
       description.query.decode(JSON.stringify(request.query)),
       request,
       response
     );
-    // }
-    // return unsupportedMethod(response, `Can't read record, due to the number of parameters received.`, parameterCount);
   }
 
   if (request.method === 'DELETE') {

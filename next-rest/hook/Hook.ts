@@ -10,8 +10,6 @@ export type Result<R> = R extends Set<infer Record extends Identified<infer ID>>
   : never;
 export type SuccessfulRemoval = undefined;
 
-// if it's undefined, it's still processing
-// if it's null, no results were resolved
 export type Output<R> = Processing | NoResult | Result<R> | Exception;
 export type Write<R> = (value: R) => Promise<Result<R>>;
 export type Remove<R, ID> = (
@@ -19,29 +17,25 @@ export type Remove<R, ID> = (
 ) => Promise<SuccessfulRemoval>;
 
 export type Hook<ID, R> = R extends Set<infer Record extends Identifiable<ID>>
-  ? // We're dealing with a record set
-  [
-    output: Output<R>,
-    write: Write<Record> & Write<R>,
-    remove: Remove<ID, R> & Remove<ID, Record>
-  ]
-  : R extends Iterable<infer Record>
-  ? // Any iterable that is not a set is invalid for now
-  never
-  : // we're dealing with a unary type
-  R extends Identifiable<ID>
   ? [
-    output: Output<R>,
-    write: Write<R> & Write<Set<R>>,
-    Remove: Remove<R, ID> & Remove<Set<R>, ID>
-  ]
-  : // only identifiables bruh...
-  never;
+      output: Output<R>,
+      write: Write<Record> & Write<R>,
+      remove: Remove<ID, R> & Remove<ID, Record>
+    ]
+  : R extends Iterable<infer _Record>
+  ? never
+  : R extends Identifiable<ID>
+  ? [
+      output: Output<R>,
+      write: Write<R> & Write<Set<R>>,
+      Remove: Remove<R, ID> & Remove<Set<R>, ID>
+    ]
+  : never;
 
-export const isProcessing = <R, ID>(v: Output<R>): v is Processing =>
+export const isProcessing = <R, _ID>(v: Output<R>): v is Processing =>
   v === undefined;
-export const isNoResult = <R, ID>(v: Output<R>): v is NoResult => v === null;
-export const isException = <R, ID>(v: Output<R>): v is Exception =>
+export const isNoResult = <R, _ID>(v: Output<R>): v is NoResult => v === null;
+export const isException = <R, _ID>(v: Output<R>): v is Exception =>
   v instanceof Exception;
-export const isResult = <R, ID>(v: Output<R>): v is Result<R> =>
+export const isResult = <R, _ID>(v: Output<R>): v is Result<R> =>
   !isProcessing(v) && !isNoResult(v) && !isException(v);

@@ -1,13 +1,11 @@
 import {Identifiable} from '#Identifiable';
 import {Query as QueryOf} from '#Query';
 
-// @formatter:off
 export type Selection<
   ID,
   Record extends Identifiable<ID>,
   Query extends QueryOf<Record>
 > = Query | ID | undefined;
-// @formatter:on
 
 export const isSelection = <
   ID,

@@ -8,7 +8,7 @@ export type UseHook<
   ID,
   Record extends Identifiable<ID>,
   Query extends QueryOf<Record>,
-  Selection extends SelectionType<ID, Record, Query>
+  _Selection extends SelectionType<ID, Record, Query>
 > = {
   (selection: ID): Hook<ID, Record>;
   (selection: Query): Hook<ID, Set<Record>>;

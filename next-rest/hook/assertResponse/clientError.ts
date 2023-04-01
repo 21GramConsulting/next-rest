@@ -31,7 +31,6 @@ import {UnavailableForLegalReasons} from '#exceptions/ResponseException/ClientEr
 import {Unauthorized} from '#exceptions/ResponseException/ClientError/Unauthorized';
 
 export const clientError = (request: FetchRequest, response: Response) => {
-  // @formatter:off
   switch (Math.floor(response.status % 100)) {
     case 0:
       throw new BadRequest('Bad Request', request, response);

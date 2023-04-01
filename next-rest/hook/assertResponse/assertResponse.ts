@@ -7,7 +7,6 @@ export const assertResponse = (
   request: FetchRequest,
   response: Response
 ): Exception | void => {
-  // @formatter:off
   switch (Math.floor(response.status / 100)) {
     case 1:
       return; // TODO: treat properly
@@ -26,5 +25,4 @@ export const assertResponse = (
         response
       );
   }
-  // @formatter:on
 };

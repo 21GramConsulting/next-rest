@@ -1,5 +1,8 @@
 import {Codec} from '@21gram-consulting/ts-codec';
-import {query as queryCodecFactory, Shape as QueryShape} from '#codec/query';
+import {
+  urlSearchParams as queryCodecFactory,
+  RecordShape as QueryShape,
+} from '@21gram-consulting/ts-codec';
 import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
 import {Query as QueryOf} from '#Query';
@@ -24,7 +27,6 @@ function createUseHook<
   record: Codec<Record>,
   query: QueryShape<Query>
 ): UseHook<ID, Record, Query, Selection> {
-  // @formatter:on
   if (endpoint.startsWith('file://')) endpoint = ___endpoint(endpoint);
   const queryCodec = queryCodecFactory(query);
   const recordCodec = json.optional(record);
@@ -36,8 +38,8 @@ function createUseHook<
     const key = isId(selection)
       ? endpoint.concat('/').concat(selection)
       : isQueryDefined(selection)
-        ? endpoint.concat('?').concat(queryCodec.encode(selection))
-        : undefined;
+      ? endpoint.concat('?').concat(queryCodec.encode(selection))
+      : undefined;
 
     const outputReader = (uri: string) =>
       fetch(uri).then(r =>
@@ -46,13 +48,11 @@ function createUseHook<
           : recordCodec.decode(r)
       );
 
-    // TODO: Call Mutate just in case :) the refresh interval keeps the state fresh but still...
-    const {data, error, isValidating, mutate} = useSWR(key, outputReader, {
+    const {data, error, isValidating} = useSWR(key, outputReader, {
       // TODO: refresh interval will be fun to tinker with
       refreshInterval: 500,
     });
 
-    // See Hook.ts
     const output = isValidating ? undefined : error ?? data ?? null;
 
     async function write(value: Record): Promise<Record & Identified<ID>>;
@@ -76,7 +76,6 @@ function createUseHook<
       // TODO: revisit for a slightly more elegant solution.
       // This forced typecast at the time of writing is 100% safe.
       const freshData = (await outputReader(uri)) as Record | undefined;
-      // you shouldn't pull ids out of your ass but if you do, we support it.
       if (!freshData) {
         return fetch(endpoint, {...payload, method: 'POST'}).then(r =>
           recordCodec.decode(r)
