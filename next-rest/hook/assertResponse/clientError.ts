@@ -113,5 +113,4 @@ export const clientError = (request: FetchRequest, response: Response) => {
     default:
       throw new ClientError('A client error occurred.', request, response);
   }
-  // @formatter:on
 };

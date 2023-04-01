@@ -3,7 +3,6 @@ import {Query as QueryOf} from '#Query';
 import {Selection as SelectionType} from '#hook/Selection';
 import {Hook} from '#hook/Hook';
 
-// @formatter:off
 export type UseHook<
   ID,
   Resource extends Identifiable<ID>,
@@ -14,5 +13,3 @@ export type UseHook<
   (selection: Query): Hook<ID, Set<Resource>>;
   (): Hook<ID, Set<Resource>>;
 };
-
-// @formatter:on
