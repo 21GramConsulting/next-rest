@@ -1,3 +1,3 @@
 import {Exception} from '#Exception';
 
-export class ResponseException extends Exception { }
+export class ResponseException extends Exception {}
