@@ -32,12 +32,12 @@ export const handler: Handler = description => async (request, response) => {
       const id = getIdentifier(description, request);
       if (!id)
         return unsupportedMethod(response, 'Expected a record identifier.', id);
-      return await description.read(description.record, id, request, response);
+      return await description.read(description.codec, id, request, response);
     }
     if (!isReadSetable(description))
       return unsupportedMethod(response, 'Record has no readSet api.');
     return description.readSet(
-      json.set(description.record),
+      json.set(description.codec),
       description.query.decode(JSON.stringify(request.query)),
       request,
       response
@@ -56,7 +56,7 @@ export const handler: Handler = description => async (request, response) => {
     const id = getIdentifier(description, request);
     if (!id)
       return unsupportedMethod(response, 'Expected a record identifier.', id);
-    return description.delete(description.record, id, request, response);
+    return description.delete(description.codec, id, request, response);
   }
 
   if (!request.body)
@@ -75,8 +75,8 @@ export const handler: Handler = description => async (request, response) => {
     if (!isCreatable(description))
       return unsupportedMethod(response, 'Record has no create api.');
     return description.create(
-      description.record.decode(JSON.stringify(request.body)),
-      description.record,
+      description.codec.decode(JSON.stringify(request.body)),
+      description.codec,
       request,
       response
     );
@@ -95,8 +95,8 @@ export const handler: Handler = description => async (request, response) => {
     if (!id)
       return unsupportedMethod(response, 'Expected a record identifier.', id);
     return description.update(
-      description.record.decode(JSON.stringify(request.body)),
-      description.record,
+      description.codec.decode(JSON.stringify(request.body)),
+      description.codec,
       id,
       request,
       response
