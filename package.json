@@ -58,7 +58,7 @@
   },
   "peerDependencies": {
     "@21gram-consulting/ts-codec": "^1.1.0",
-    "next": "^12.0.0 || ^13.0.0",
+    "next": "^12.3.4",
     "swr": "^1.0.0 || ^2.0.0"
   },
   "jest": {

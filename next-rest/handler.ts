@@ -7,9 +7,8 @@ import {
   isReadSetable,
   isUpdateable,
 } from '#Description';
-import {NextApiHandler} from 'next';
 import {isHttpMethod} from '#Methods';
-import {NextApiRequest, NextApiResponse} from 'next';
+import {NextApiHandler, NextApiRequest, NextApiResponse} from 'next';
 import {Query as QueryOf} from '#Query';
 import {json} from '@21gram-consulting/ts-codec';
 import {Identifier} from '#Identifier';
@@ -119,7 +118,7 @@ const unsupportedMethod = (
   return response.status(405).end();
 };
 
-export const getIdentifier = <R, I, Q extends QueryOf<R>>(
+const getIdentifier = <R, I, Q extends QueryOf<R>>(
   description: Description<R, I, Q> & Identified,
   request: NextApiRequest
 ): Identifier<I> | undefined => {
