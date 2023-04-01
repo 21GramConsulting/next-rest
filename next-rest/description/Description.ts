@@ -36,31 +36,31 @@ export const isCreatable = <R, I, Q extends QueryOf<R>>(
 export const isReadable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is Read<R, I> => {
-  const hypothesis = v as Read<R, I>;
-  if (typeof hypothesis.idParameterName !== 'string') return false;
-  return typeof hypothesis.read === 'function';
+  const candidate = v as Read<R, I>;
+  if (typeof candidate.idParameterName !== 'string') return false;
+  return typeof candidate.read === 'function';
 };
 
 export const isReadSetable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is ReadSet<R, Q> => {
-  const hypothesis = v as ReadSet<R, Q>;
-  if (typeof hypothesis.query !== 'object') return false;
-  return typeof hypothesis.readSet === 'function';
+  const candidate = v as ReadSet<R, Q>;
+  if (typeof candidate.query !== 'object') return false;
+  return typeof candidate.readSet === 'function';
 };
 
 export const isDeletable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is Delete<R, I> => {
-  const hypothesis = v as Delete<R, I>;
-  if (typeof hypothesis.idParameterName !== 'string') return false;
-  return typeof hypothesis.delete === 'function';
+  const candidate = v as Delete<R, I>;
+  if (typeof candidate.idParameterName !== 'string') return false;
+  return typeof candidate.delete === 'function';
 };
 
 export const isUpdateable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is Update<R, I> => {
-  const hypothesis = v as Update<R, I>;
-  if (typeof hypothesis.idParameterName !== 'string') return false;
-  return typeof hypothesis.update === 'function';
+  const candidate = v as Update<R, I>;
+  if (typeof candidate.idParameterName !== 'string') return false;
+  return typeof candidate.update === 'function';
 };
