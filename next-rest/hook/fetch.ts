@@ -1,4 +1,4 @@
-import {assertResponse} from '#hook/assertResponse/assertResponse';
+import assertResponse from '#hook/assertResponse';
 import {RawData} from '@21gram-consulting/ts-codec';
 
 export default async function (

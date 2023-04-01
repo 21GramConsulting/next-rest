@@ -3,7 +3,7 @@ import {clientError} from '#hook/assertResponse/clientError';
 import {serverError} from '#hook/assertResponse/serverError';
 import {Exception} from '#Exception';
 
-export const assertResponse = (
+export default (
   request: FetchRequest,
   response: Response
 ): Exception | void => {
