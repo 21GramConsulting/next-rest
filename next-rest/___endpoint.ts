@@ -1,7 +1,8 @@
-import { sep as DIRECTORY_SEPARATOR } from 'path';
+import {sep as DIRECTORY_SEPARATOR} from 'path';
 
 export const ___endpoint = (importMetaUrl: string) => {
-  const baseValue: string = importMetaUrl.split(['pages', 'api'].join(DIRECTORY_SEPARATOR)).pop() ?? '';
+  const apiDirectory = ['pages', 'api'].join(DIRECTORY_SEPARATOR);
+  const baseValue: string = importMetaUrl.split(apiDirectory).pop() ?? '';
   let path: string;
   if (baseValue.endsWith('/index.api.ts')) {
     path = baseValue.replace(/\/index\.api\.ts$/, '');
