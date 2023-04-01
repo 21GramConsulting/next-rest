@@ -13,7 +13,7 @@ import {___endpoint} from '#___endpoint';
 import useSWR from 'swr';
 import fetch from '#hook/fetch';
 import {json} from '@21gram-consulting/ts-codec';
-function createUseHook<
+export function createUseHook<
   ID extends string,
   Resource extends Identifiable<ID>,
   Query extends QueryOf<Resource>,
@@ -99,6 +99,4 @@ function createUseHook<
   }
 
   return useHook;
-}
-
-export default createUseHook;
+};
