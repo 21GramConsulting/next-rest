@@ -18,7 +18,7 @@ type Handler = <Record, ID, Query extends QueryOf<Record>>(
   description: Description<Record, ID, Query>
 ) => NextApiHandler<Record>;
 
-export const record: Handler = description => async (request, response) => {
+export const handler: Handler = description => async (request, response) => {
   if (!request.method) return response.status(400).end();
   if (request.headers['content-type'] !== 'application/json')
     return response.status(400).end();
