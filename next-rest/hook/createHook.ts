@@ -38,8 +38,8 @@ function createUseHook<
     const key = isId(selection)
       ? endpoint.concat('/').concat(selection)
       : isQueryDefined(selection)
-      ? endpoint.concat('?').concat(queryCodec.encode(selection))
-      : undefined;
+        ? endpoint.concat('?').concat(queryCodec.encode(selection))
+        : undefined;
 
     const outputReader = (uri: string) =>
       fetch(uri).then(r =>

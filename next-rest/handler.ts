@@ -13,9 +13,9 @@ import {Query as QueryOf} from '#Query';
 import {json} from '@21gram-consulting/ts-codec';
 import {Identifier} from '#Identifier';
 
-type Handler = <Record, ID, Query extends QueryOf<Record>>(
-  description: Description<Record, ID, Query>
-) => NextApiHandler<Record>;
+type Handler = <Resource, ID, Query extends QueryOf<Resource>>(
+  description: Description<Resource, ID, Query>
+) => NextApiHandler<Resource>;
 
 export const handler: Handler = description => async (request, response) => {
   if (!request.method) return response.status(400).end();
@@ -28,14 +28,18 @@ export const handler: Handler = description => async (request, response) => {
   if (request.method === 'GET') {
     if (parameterCount === 1) {
       if (!isReadable(description))
-        return unsupportedMethod(response, 'Record has no read api.');
+        return unsupportedMethod(response, 'Resource has no read api.');
       const id = getIdentifier(description, request);
       if (!id)
-        return unsupportedMethod(response, 'Expected a record identifier.', id);
+        return unsupportedMethod(
+          response,
+          'Expected a resource identifier.',
+          id
+        );
       return await description.read(description.codec, id, request, response);
     }
     if (!isReadSetable(description))
-      return unsupportedMethod(response, 'Record has no readSet api.');
+      return unsupportedMethod(response, 'Resource has no readSet api.');
     return description.readSet(
       json.set(description.codec),
       description.query.decode(JSON.stringify(request.query)),
@@ -48,14 +52,14 @@ export const handler: Handler = description => async (request, response) => {
     if (parameterCount !== 1)
       return unsupportedMethod(
         response,
-        "Can't delete record, due to the number of parameters received.",
+        "Can't delete resource, due to the number of parameters received.",
         parameterCount
       );
     if (!isDeletable(description))
-      return unsupportedMethod(response, 'Record has no delete api.');
+      return unsupportedMethod(response, 'Resource has no delete api.');
     const id = getIdentifier(description, request);
     if (!id)
-      return unsupportedMethod(response, 'Expected a record identifier.', id);
+      return unsupportedMethod(response, 'Expected a resource identifier.', id);
     return description.delete(description.codec, id, request, response);
   }
 
@@ -69,11 +73,11 @@ export const handler: Handler = description => async (request, response) => {
     if (parameterCount !== 0)
       return unsupportedMethod(
         response,
-        "Can't create record, due to the number of parameters received.",
+        "Can't create resource, due to the number of parameters received.",
         parameterCount
       );
     if (!isCreatable(description))
-      return unsupportedMethod(response, 'Record has no create api.');
+      return unsupportedMethod(response, 'Resource has no create api.');
     return description.create(
       description.codec.decode(JSON.stringify(request.body)),
       description.codec,
@@ -86,14 +90,14 @@ export const handler: Handler = description => async (request, response) => {
     if (parameterCount !== 1)
       return unsupportedMethod(
         response,
-        "Can't update record, due to the number of parameters received",
+        "Can't update resource, due to the number of parameters received",
         parameterCount
       );
     if (!isUpdateable(description))
-      return unsupportedMethod(response, 'Record has no update api.');
+      return unsupportedMethod(response, 'Resource has no update api.');
     const id = getIdentifier(description, request);
     if (!id)
-      return unsupportedMethod(response, 'Expected a record identifier.', id);
+      return unsupportedMethod(response, 'Expected a resource identifier.', id);
     return description.update(
       description.codec.decode(JSON.stringify(request.body)),
       description.codec,

@@ -6,12 +6,12 @@ import {Query as QueryOf} from '#Query';
 import {CreateHandler} from '#handlers/CreateHandler';
 import {Coded} from './Coded';
 
-export type Description<Record, ID, Query extends QueryOf<Record>> =
-  | Create<Record>
-  | ReadSet<Record, Query>
-  | Read<Record, ID>
-  | Delete<Record, ID>
-  | Update<Record, ID>;
+export type Description<Resource, ID, Query extends QueryOf<Resource>> =
+  | Create<Resource>
+  | ReadSet<Resource, Query>
+  | Read<Resource, ID>
+  | Delete<Resource, ID>
+  | Update<Resource, ID>;
 
 export type Create<R> = Coded<R> & {create: CreateHandler<R>};
 export type ReadSet<R, Q extends QueryOf<R>> = Coded<R> &
