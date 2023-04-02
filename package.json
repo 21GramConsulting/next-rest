@@ -15,7 +15,7 @@
     "test": "jest",
     "build": "tsc && tsc-alias",
     "clean": "rm -rf lib docs coverage",
-    "api-documentation": "typedoc"
+    "doc": "typedoc"
   },
   "repository": {
     "type": "git",

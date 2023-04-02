@@ -1,66 +1,24 @@
-import {Codec} from '@21gram-consulting/ts-codec';
-import {ReadHandler} from '#handlers/ReadHandler';
-import {Identifier} from '#Identifier';
-import {UpdateHandler} from '#handlers/UpdateHandler';
 import {Query as QueryOf} from '#Query';
-import {CreateHandler} from '#handlers/CreateHandler';
-import {Coded} from './Coded';
+import {Create} from './Create';
+import {Read} from './Read';
+import {ReadSet} from './ReadSet';
+import {Delete} from './Delete';
+import {Update} from './Update';
 
+/**
+ * @summary
+ * A description of a resource handler.
+ * @description
+ * This is practically a convenient type.
+ * We suggest its usage, but it is not required.
+ * @template Resource The type of the resource.
+ * @template ID The type of the resource's identifier.
+ * @template Query The type of the resource's query.
+ * @group Core API
+ */
 export type Description<Resource, ID, Query extends QueryOf<Resource>> =
   | Create<Resource>
   | ReadSet<Resource, Query>
   | Read<Resource, ID>
   | Delete<Resource, ID>
   | Update<Resource, ID>;
-
-export type Create<R> = Coded<R> & {create: CreateHandler<R>};
-export type ReadSet<R, Q extends QueryOf<R>> = Coded<R> &
-  Queried<R, Q> & {readSet: ReadHandler<Set<R>, Q>};
-export type Read<R, ID> = Coded<R> &
-  Identified & {read: ReadHandler<R, Identifier<ID>>};
-export type Delete<R, ID> = Coded<R> &
-  Identified & {delete: ReadHandler<R, Identifier<ID>>};
-export type Update<R, ID> = Coded<R> &
-  Identified & {update: UpdateHandler<R, Identifier<ID>>};
-
-export type Queried<R, Q extends QueryOf<R>> = {query: Codec<Q>};
-export type Identified = {idParameterName: string};
-
-export const isCreatable = <R, I, Q extends QueryOf<R>>(
-  v: Description<R, I, Q>
-): v is Create<R> => {
-  const candidate = v as Create<R>;
-  return typeof candidate.create === 'function';
-};
-
-export const isReadable = <R, I, Q extends QueryOf<R>>(
-  v: Description<R, I, Q>
-): v is Read<R, I> => {
-  const candidate = v as Read<R, I>;
-  if (typeof candidate.idParameterName !== 'string') return false;
-  return typeof candidate.read === 'function';
-};
-
-export const isReadSetable = <R, I, Q extends QueryOf<R>>(
-  v: Description<R, I, Q>
-): v is ReadSet<R, Q> => {
-  const candidate = v as ReadSet<R, Q>;
-  if (typeof candidate.query !== 'object') return false;
-  return typeof candidate.readSet === 'function';
-};
-
-export const isDeletable = <R, I, Q extends QueryOf<R>>(
-  v: Description<R, I, Q>
-): v is Delete<R, I> => {
-  const candidate = v as Delete<R, I>;
-  if (typeof candidate.idParameterName !== 'string') return false;
-  return typeof candidate.delete === 'function';
-};
-
-export const isUpdateable = <R, I, Q extends QueryOf<R>>(
-  v: Description<R, I, Q>
-): v is Update<R, I> => {
-  const candidate = v as Update<R, I>;
-  if (typeof candidate.idParameterName !== 'string') return false;
-  return typeof candidate.update === 'function';
-};

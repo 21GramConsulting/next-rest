@@ -1,12 +1,12 @@
 import {
   Description,
   Identified,
-  isCreatable,
   isDeletable,
   isReadable,
   isReadSetable,
-  isUpdateable,
-} from '#description/Description';
+  isUpdatable,
+} from '#description';
+import {isCreatable} from "#description/Create";
 import {isHttpMethod} from '#Methods';
 import {NextApiHandler, NextApiRequest, NextApiResponse} from 'next';
 import {Query as QueryOf} from '#Query';
@@ -42,7 +42,7 @@ export const handler: Handler = description => async (request, response) => {
       return unsupportedMethod(response, 'Resource has no readSet api.');
     return description.readSet(
       json.set(description.codec),
-      description.query.decode(JSON.stringify(request.query)),
+      description.queryCodec.decode(JSON.stringify(request.query)),
       request,
       response
     );
@@ -93,7 +93,7 @@ export const handler: Handler = description => async (request, response) => {
         "Can't update resource, due to the number of parameters received",
         parameterCount
       );
-    if (!isUpdateable(description))
+    if (!isUpdatable(description))
       return unsupportedMethod(response, 'Resource has no update api.');
     const id = getIdentifier(description, request);
     if (!id)
