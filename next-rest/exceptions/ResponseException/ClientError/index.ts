@@ -1,5 +1,5 @@
-export * from './BadRequest';
 export * from './ClientError';
+export * from './BadRequest';
 export * from './Conflict';
 export * from './ExpectationFailed';
 export * from './FailedDependency';

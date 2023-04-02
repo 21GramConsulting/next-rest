@@ -9,4 +9,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * deceptive request routing).
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class BadRequest extends ClientError { }
+export class BadRequest extends ClientError {}

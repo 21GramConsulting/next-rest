@@ -7,4 +7,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * time. Intended for use with rate-limiting schemes.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class TooManyRequests extends ClientError { }
+export class TooManyRequests extends ClientError {}

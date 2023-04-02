@@ -13,4 +13,4 @@ import {ResponseException} from '#exceptions/ResponseException';
  * included entity to the user.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class ClientError extends ResponseException { }
+export class ClientError extends ResponseException {}

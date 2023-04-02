@@ -3,7 +3,9 @@ import {Identifiable, Identified} from '#Identifiable';
 
 export type Processing = undefined;
 export type NoResult = null;
-export type Result<R> = R extends Set<infer Resource extends Identified<infer ID>>
+export type Result<R> = R extends Set<
+  infer Resource extends Identified<infer ID>
+>
   ? Set<Identified<ID> & Resource>
   : R extends Identified<infer ID>
   ? R & Identified<ID>
@@ -18,18 +20,18 @@ export type Remove<R, ID> = (
 
 export type Hook<ID, R> = R extends Set<infer Resource extends Identifiable<ID>>
   ? [
-    output: Output<R>,
-    write: Write<Resource> & Write<R>,
-    remove: Remove<ID, R> & Remove<ID, Resource>
-  ]
+      output: Output<R>,
+      write: Write<Resource> & Write<R>,
+      remove: Remove<ID, R> & Remove<ID, Resource>
+    ]
   : R extends Iterable<infer _Resource>
   ? never
   : R extends Identifiable<ID>
   ? [
-    output: Output<R>,
-    write: Write<R> & Write<Set<R>>,
-    Remove: Remove<R, ID> & Remove<Set<R>, ID>
-  ]
+      output: Output<R>,
+      write: Write<R> & Write<Set<R>>,
+      Remove: Remove<R, ID> & Remove<Set<R>, ID>
+    ]
   : never;
 
 export const isProcessing = <R, _ID>(v: Output<R>): v is Processing =>

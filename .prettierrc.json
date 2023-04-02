@@ -2,5 +2,9 @@
   "bracketSpacing": false,
   "singleQuote": true,
   "trailingComma": "es5",
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "semi": true,
+  "useTabs": false
 }

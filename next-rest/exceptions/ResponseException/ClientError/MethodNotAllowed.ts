@@ -9,4 +9,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * on a read-only resource.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class MethodNotAllowed extends ClientError { }
+export class MethodNotAllowed extends ClientError {}

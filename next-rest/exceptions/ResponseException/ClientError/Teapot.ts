@@ -15,4 +15,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * the more appropriate 403 Forbidden.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Teapot extends ClientError { }
+export class Teapot extends ClientError {}

@@ -7,4 +7,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * and that request failed (e.g., a PROPPATCH).
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class FailedDependency extends ClientError { }
+export class FailedDependency extends ClientError {}

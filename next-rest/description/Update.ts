@@ -3,7 +3,7 @@ import {UpdateHandler} from '#handlers/UpdateHandler';
 import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
-import {IdentityAware} from "./Identified";
+import {IdentityAware} from './Identified';
 
 /**
  * @summary
@@ -12,13 +12,14 @@ import {IdentityAware} from "./Identified";
  * @template ID The type of the identifier of the resource.
  * @group Core API
  */
-export type Update<R, ID> = Coded<R> & IdentityAware & {
-  /**
-   * @summary
-   * The handler that will be used to update the resource.
-   */
-  update: UpdateHandler<R, Identifier<ID>>;
-};
+export type Update<R, ID> = Coded<R> &
+  IdentityAware & {
+    /**
+     * @summary
+     * The handler that will be used to update the resource.
+     */
+    update: UpdateHandler<R, Identifier<ID>>;
+  };
 
 /**
  * @summary
@@ -33,7 +34,6 @@ export const isUpdatable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is Update<R, I> => {
   const candidate = v as Update<R, I>;
-  if (typeof candidate.idParameterName !== 'string')
-    return false;
+  if (typeof candidate.idParameterName !== 'string') return false;
   return typeof candidate.update === 'function';
 };

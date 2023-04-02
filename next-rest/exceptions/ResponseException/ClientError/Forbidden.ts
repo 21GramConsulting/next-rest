@@ -15,4 +15,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * should not be repeated.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Forbidden extends ClientError { }
+export class Forbidden extends ClientError {}

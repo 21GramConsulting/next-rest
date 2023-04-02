@@ -8,4 +8,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * fields collectively, are too large.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class RequestHeaderFieldsTooLarge extends ClientError { }
+export class RequestHeaderFieldsTooLarge extends ClientError {}

@@ -19,4 +19,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * a website
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Unauthorized extends ClientError { }
+export class Unauthorized extends ClientError {}

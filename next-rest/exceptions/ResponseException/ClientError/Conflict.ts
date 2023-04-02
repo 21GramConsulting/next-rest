@@ -8,4 +8,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * an edit conflict between multiple simultaneous updates.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Conflict extends ClientError { }
+export class Conflict extends ClientError {}

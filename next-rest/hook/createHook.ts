@@ -1,4 +1,9 @@
-import {Codec, RecordShape, urlSearchParams} from '@21gram-consulting/ts-codec';
+import {
+  Codec,
+  RecordShape,
+  urlSearchParams,
+  json,
+} from '@21gram-consulting/ts-codec';
 import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
 import {Query as QueryOf} from '#Query';
@@ -11,7 +16,6 @@ import {
 import {Hook} from '#hook/Hook';
 import useSWR from 'swr';
 import fetch from '#hook/fetch';
-import {json} from '@21gram-consulting/ts-codec';
 export function createHook<
   ID extends string,
   Resource extends Identifiable<ID>,
@@ -32,8 +36,8 @@ export function createHook<
     const key = isId(selection)
       ? endpoint.concat('/').concat(selection)
       : isQueryDefined(selection)
-        ? endpoint.concat('?').concat(queryCodec.encode(selection))
-        : undefined;
+      ? endpoint.concat('?').concat(queryCodec.encode(selection))
+      : undefined;
 
     const outputReader = (uri: string) =>
       fetch(uri).then(r =>
@@ -97,4 +101,4 @@ export function createHook<
   }
 
   return useHook;
-};
+}

@@ -3,7 +3,7 @@ import {Identifier} from '#Identifier';
 import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
-import {IdentityAware} from "./Identified";
+import {IdentityAware} from './Identified';
 
 /**
  * @summary
@@ -12,13 +12,14 @@ import {IdentityAware} from "./Identified";
  * @template ID The type of the resource's identifier.
  * @group Core API
  */
-export type Delete<R, ID> = Coded<R> & IdentityAware & {
-  /**
-   * @summary
-   * The handler that deletes the resource.
-   */
-  delete: ReadHandler<R, Identifier<ID>>;
-};
+export type Delete<R, ID> = Coded<R> &
+  IdentityAware & {
+    /**
+     * @summary
+     * The handler that deletes the resource.
+     */
+    delete: ReadHandler<R, Identifier<ID>>;
+  };
 
 /**
  * @summary
@@ -33,7 +34,6 @@ export const isDeletable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is Delete<R, I> => {
   const candidate = v as Delete<R, I>;
-  if (typeof candidate.idParameterName !== 'string')
-    return false;
+  if (typeof candidate.idParameterName !== 'string') return false;
   return typeof candidate.delete === 'function';
 };

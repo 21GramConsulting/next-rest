@@ -15,4 +15,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * may be used instead.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Gone extends ClientError { }
+export class Gone extends ClientError {}

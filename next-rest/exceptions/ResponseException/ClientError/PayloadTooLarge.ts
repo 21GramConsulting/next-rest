@@ -8,4 +8,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * in RFC 2616
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class PayloadTooLarge extends ClientError { }
+export class PayloadTooLarge extends ClientError {}

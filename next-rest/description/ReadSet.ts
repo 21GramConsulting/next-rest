@@ -2,7 +2,7 @@ import {ReadHandler} from '#handlers/ReadHandler';
 import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
-import {Queried} from "./Queried";
+import {Queried} from './Queried';
 
 /**
  * @summary
@@ -16,13 +16,14 @@ import {Queried} from "./Queried";
  * @see Read
  * @group Core API
  */
-export type ReadSet<R, Q extends QueryOf<R>> = Coded<R> & Queried<R, Q> & {
-  /**
-   * @summary
-   * The handler used to read the resource in sets.
-   */
-  readSet: ReadHandler<Set<R>, Q>;
-};
+export type ReadSet<R, Q extends QueryOf<R>> = Coded<R> &
+  Queried<R, Q> & {
+    /**
+     * @summary
+     * The handler used to read the resource in sets.
+     */
+    readSet: ReadHandler<Set<R>, Q>;
+  };
 
 /**
  * @summary
@@ -37,7 +38,6 @@ export const isReadSetable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is ReadSet<R, Q> => {
   const candidate = v as ReadSet<R, Q>;
-  if (typeof candidate.queryCodec !== 'object')
-    return false;
+  if (typeof candidate.queryCodec !== 'object') return false;
   return typeof candidate.readSet === 'function';
 };

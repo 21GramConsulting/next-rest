@@ -10,4 +10,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * the Acknowledgements in the RFC).
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class UnavailableForLegalReasons extends ClientError { }
+export class UnavailableForLegalReasons extends ClientError {}

@@ -6,12 +6,12 @@
     "noFallthroughCasesInSwitch": true,
     "pretty": true,
     "sourceMap": true,
-    "target": "ES2021",
+    "target": "ESNext",
     "lib": [
       "ES2021",
       "DOM"
     ],
-    "module": "CommonJS",
+    "module": "ESNext",
     "rootDir": ".",
     "moduleResolution": "node",
     "baseUrl": "./",
@@ -54,6 +54,9 @@
     "noImplicitOverride": true,
     "skipLibCheck": true
   },
+  "include": [
+    "next-rest/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     "lib",

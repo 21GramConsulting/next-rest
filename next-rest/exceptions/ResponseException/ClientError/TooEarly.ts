@@ -7,4 +7,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * processing a request that might be replayed.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class TooEarly extends ClientError { }
+export class TooEarly extends ClientError {}

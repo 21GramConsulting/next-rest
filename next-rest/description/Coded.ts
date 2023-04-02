@@ -20,5 +20,5 @@ export type Coded<R> = {
    * @summary
    * The codec used to encode and decode the resource.
    */
-  codec: Codec<R>
+  codec: Codec<R>;
 };

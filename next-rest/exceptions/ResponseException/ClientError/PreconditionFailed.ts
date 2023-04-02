@@ -7,4 +7,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * the requester put on the request header fields.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class PreconditionFailed extends ClientError { }
+export class PreconditionFailed extends ClientError {}

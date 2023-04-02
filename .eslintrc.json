@@ -2,10 +2,13 @@
   "extends": [
     "eslint:recommended",
     "plugin:node/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "prettier"
   ],
   "plugins": [
     "node",
+    "import",
     "prettier"
   ],
   "rules": {
@@ -69,5 +72,11 @@
         "sourceType": "module"
       }
     }
-  ]
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": true,
+      "node": true
+    }
+  }
 }

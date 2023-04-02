@@ -8,4 +8,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * client are permissible.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class NotFound extends ClientError { }
+export class NotFound extends ClientError {}

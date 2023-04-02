@@ -7,4 +7,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * due to semantic errors.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class UnprocessableEntity extends ClientError { }
+export class UnprocessableEntity extends ClientError {}

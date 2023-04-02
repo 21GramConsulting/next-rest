@@ -17,4 +17,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * for example blocked fraudulent payments.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class PaymentRequired extends ClientError { }
+export class PaymentRequired extends ClientError {}

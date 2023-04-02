@@ -6,4 +6,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * The resource that is being accessed is locked.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Locked extends ClientError { }
+export class Locked extends ClientError {}

@@ -7,4 +7,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * produce a response (for example because of connection reuse).
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class MisdirectedRequest extends ClientError { }
+export class MisdirectedRequest extends ClientError {}

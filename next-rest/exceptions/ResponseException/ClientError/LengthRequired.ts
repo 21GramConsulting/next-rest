@@ -7,4 +7,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * which is required by the requested resource.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class LengthRequired extends ClientError { }
+export class LengthRequired extends ClientError {}

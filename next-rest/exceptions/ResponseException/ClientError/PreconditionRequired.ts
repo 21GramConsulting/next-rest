@@ -10,4 +10,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * modified the state on the server, leading to a conflict.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class PreconditionRequired extends ClientError { }
+export class PreconditionRequired extends ClientError {}

@@ -10,4 +10,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * Long" previously in RFC 2616.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class URITooLong extends ClientError { }
+export class URITooLong extends ClientError {}

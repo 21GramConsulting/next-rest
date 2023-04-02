@@ -8,4 +8,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * sent in the request. See Content negotiation.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class NotAcceptable extends ClientError { }
+export class NotAcceptable extends ClientError {}

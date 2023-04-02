@@ -3,7 +3,7 @@ import {Identifier} from '#Identifier';
 import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
-import {IdentityAware} from "./Identified";
+import {IdentityAware} from './Identified';
 
 /**
  * @summary
@@ -16,13 +16,14 @@ import {IdentityAware} from "./Identified";
  * @see ReadSet
  * @group Core API
  */
-export type Read<R, ID> = Coded<R> & IdentityAware & {
-  /**
-   * @summary
-   * The handler that will be used to read the resource.
-   */
-  read: ReadHandler<R, Identifier<ID>>;
-};
+export type Read<R, ID> = Coded<R> &
+  IdentityAware & {
+    /**
+     * @summary
+     * The handler that will be used to read the resource.
+     */
+    read: ReadHandler<R, Identifier<ID>>;
+  };
 
 /**
  * @summary
@@ -37,7 +38,6 @@ export const isReadable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is Read<R, I> => {
   const candidate = v as Read<R, I>;
-  if (typeof candidate.idParameterName !== 'string')
-    return false;
+  if (typeof candidate.idParameterName !== 'string') return false;
   return typeof candidate.read === 'function';
 };

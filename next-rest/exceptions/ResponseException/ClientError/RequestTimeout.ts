@@ -10,4 +10,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * modifications at any later time."
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class RequestTimeout extends ClientError { }
+export class RequestTimeout extends ClientError {}

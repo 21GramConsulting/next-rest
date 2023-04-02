@@ -6,7 +6,7 @@ import {
   isReadSetable,
   isUpdatable,
 } from '#description';
-import {isCreatable} from "#description/Create";
+import {isCreatable} from '#description/Create';
 import {isHttpMethod} from '#Methods';
 import {NextApiHandler, NextApiRequest, NextApiResponse} from 'next';
 import {Query as QueryOf} from '#Query';

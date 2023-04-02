@@ -7,4 +7,4 @@ import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError
  * request-header field.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class ExpectationFailed extends ClientError { }
+export class ExpectationFailed extends ClientError {}
