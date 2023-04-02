@@ -12,7 +12,7 @@ import {Hook} from '#hook/Hook';
 import useSWR from 'swr';
 import fetch from '#hook/fetch';
 import {json} from '@21gram-consulting/ts-codec';
-export function createUseHook<
+export function createHook<
   ID extends string,
   Resource extends Identifiable<ID>,
   Query extends QueryOf<Resource>,

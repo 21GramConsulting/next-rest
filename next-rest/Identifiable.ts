@@ -1,4 +1,4 @@
-import {Identifier} from '#Identifier';
+import {Identifier} from './Identifier';
 
 export type Identifiable<ID> = Identified<ID> | Unidentified<ID>;
 export type Identified<ID> = {id: Identifier<ID>;};
