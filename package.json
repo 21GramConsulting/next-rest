@@ -15,7 +15,8 @@
     "test": "jest",
     "build": "tsc && tsc-alias",
     "clean": "rm -rf lib docs coverage",
-    "doc": "typedoc"
+    "doc": "typedoc",
+    "lint": "eslint next-rest"
   },
   "repository": {
     "type": "git",
