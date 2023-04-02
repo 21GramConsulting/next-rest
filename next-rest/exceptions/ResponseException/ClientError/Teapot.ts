@@ -1,4 +1,4 @@
-import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError';
+import {ClientError} from './ClientError';
 
 /**
  * @summary Represents a 418 I'm a teapot.

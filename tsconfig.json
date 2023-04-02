@@ -13,7 +13,7 @@
     ],
     "module": "ESNext",
     "rootDir": ".",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "baseUrl": "./",
     "paths": {
       "#*": [

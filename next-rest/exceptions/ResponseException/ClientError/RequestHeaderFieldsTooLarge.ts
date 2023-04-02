@@ -1,4 +1,4 @@
-import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError';
+import {ClientError} from './ClientError';
 
 /**
  * @summary Represents a 431 Request Header Fields Too Large.

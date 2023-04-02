@@ -1,4 +1,4 @@
-import {ClientError} from '#exceptions/ResponseException/ClientError/ClientError';
+import {ClientError} from './ClientError';
 
 /**
  * @summary Represents a 413 Payload Too Large error.
