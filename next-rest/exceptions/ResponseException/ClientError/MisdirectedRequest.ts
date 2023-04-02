@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 421 Misdirected Request.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * produce a response (for example because of connection reuse).
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class MisdirectedRequest extends ClientError {}
+export default class MisdirectedRequest extends ClientError {}

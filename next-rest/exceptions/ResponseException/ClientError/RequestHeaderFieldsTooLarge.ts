@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 431 Request Header Fields Too Large.
@@ -8,4 +8,4 @@ import {ClientError} from './ClientError';
  * fields collectively, are too large.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class RequestHeaderFieldsTooLarge extends ClientError {}
+export default class RequestHeaderFieldsTooLarge extends ClientError {}

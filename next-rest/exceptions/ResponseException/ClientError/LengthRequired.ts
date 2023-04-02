@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 411 Length Required error.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * which is required by the requested resource.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class LengthRequired extends ClientError {}
+export default class LengthRequired extends ClientError {}

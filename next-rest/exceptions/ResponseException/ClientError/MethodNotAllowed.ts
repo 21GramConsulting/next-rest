@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 405 Method Not Allowed.
@@ -9,4 +9,4 @@ import {ClientError} from './ClientError';
  * on a read-only resource.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class MethodNotAllowed extends ClientError {}
+export default class MethodNotAllowed extends ClientError {}

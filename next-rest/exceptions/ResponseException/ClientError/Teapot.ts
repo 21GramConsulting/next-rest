@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 418 I'm a teapot.
@@ -15,4 +15,4 @@ import {ClientError} from './ClientError';
  * the more appropriate 403 Forbidden.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Teapot extends ClientError {}
+export default class Teapot extends ClientError {}

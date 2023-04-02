@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 404 Not Found.
@@ -8,4 +8,4 @@ import {ClientError} from './ClientError';
  * client are permissible.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class NotFound extends ClientError {}
+export default class NotFound extends ClientError {}

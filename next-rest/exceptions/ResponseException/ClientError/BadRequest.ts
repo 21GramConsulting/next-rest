@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 400 Bad Request.
@@ -9,4 +9,4 @@ import {ClientError} from './ClientError';
  * deceptive request routing).
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class BadRequest extends ClientError {}
+export default class BadRequest extends ClientError {}

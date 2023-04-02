@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 416 Range Not Satisfiable.
@@ -10,4 +10,4 @@ import {ClientError} from './ClientError';
  * Not Satisfiable" previously RFC 2616.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class RangeNotSatisfiable extends ClientError {}
+export default class RangeNotSatisfiable extends ClientError {}

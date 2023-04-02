@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 413 Payload Too Large error.
@@ -8,4 +8,4 @@ import {ClientError} from './ClientError';
  * in RFC 2616
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class PayloadTooLarge extends ClientError {}
+export default class PayloadTooLarge extends ClientError {}

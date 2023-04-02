@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 425 Too Early.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * processing a request that might be replayed.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class TooEarly extends ClientError {}
+export default class TooEarly extends ClientError {}

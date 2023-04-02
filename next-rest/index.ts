@@ -4,7 +4,7 @@
  * Provides the primary `next-rest` API.
  */
 
-export * from './Exception';
+export {default as Exception} from './Exception';
 export * from './FetchRequest';
 export * from './Identifiable';
 export * from './Identifier';

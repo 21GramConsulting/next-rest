@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 409 Conflict.
@@ -8,4 +8,4 @@ import {ClientError} from './ClientError';
  * an edit conflict between multiple simultaneous updates.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Conflict extends ClientError {}
+export default class Conflict extends ClientError {}

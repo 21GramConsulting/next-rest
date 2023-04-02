@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 451 Unavailable For Legal Reasons.
@@ -10,4 +10,4 @@ import {ClientError} from './ClientError';
  * the Acknowledgements in the RFC).
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class UnavailableForLegalReasons extends ClientError {}
+export default class UnavailableForLegalReasons extends ClientError {}

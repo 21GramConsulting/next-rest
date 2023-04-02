@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 428 Precondition Required.
@@ -10,4 +10,4 @@ import {ClientError} from './ClientError';
  * modified the state on the server, leading to a conflict.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class PreconditionRequired extends ClientError {}
+export default class PreconditionRequired extends ClientError {}

@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 408 Request Timeout.
@@ -10,4 +10,4 @@ import {ClientError} from './ClientError';
  * modifications at any later time."
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class RequestTimeout extends ClientError {}
+export default class RequestTimeout extends ClientError {}

@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 417 Expectation Failed.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * request-header field.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class ExpectationFailed extends ClientError {}
+export default class ExpectationFailed extends ClientError {}

@@ -1,4 +1,4 @@
-import {Exception} from '#Exception';
+import Exception from '#Exception';
 import {Identifiable, Identified} from '#Identifiable';
 
 export type Processing = undefined;

@@ -18,4 +18,4 @@ import {ResponseException} from '#exceptions/ResponseException';
  *
  * @group HTTP Response Exceptions: 5xx Server Error
  */
-export class ServerError extends ResponseException {}
+export default class ServerError extends ResponseException {}

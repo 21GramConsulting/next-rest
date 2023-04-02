@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 401 Unauthorized.
@@ -19,4 +19,4 @@ import {ClientError} from './ClientError';
  * a website
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Unauthorized extends ClientError {}
+export default class Unauthorized extends ClientError {}

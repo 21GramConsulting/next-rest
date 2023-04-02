@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 414 URL Too Long error.
@@ -10,4 +10,4 @@ import {ClientError} from './ClientError';
  * Long" previously in RFC 2616.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class URITooLong extends ClientError {}
+export default class URITooLong extends ClientError {}

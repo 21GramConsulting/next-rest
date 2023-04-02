@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 410 Gone.
@@ -15,4 +15,4 @@ import {ClientError} from './ClientError';
  * may be used instead.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Gone extends ClientError {}
+export default class Gone extends ClientError {}

@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 412 Precondition Failed.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * the requester put on the request header fields.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class PreconditionFailed extends ClientError {}
+export default class PreconditionFailed extends ClientError {}

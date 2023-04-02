@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 424 Failed Dependency.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * and that request failed (e.g., a PROPPATCH).
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class FailedDependency extends ClientError {}
+export default class FailedDependency extends ClientError {}

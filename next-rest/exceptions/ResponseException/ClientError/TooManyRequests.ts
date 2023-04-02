@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 429 Too Many Requests.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * time. Intended for use with rate-limiting schemes.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class TooManyRequests extends ClientError {}
+export default class TooManyRequests extends ClientError {}

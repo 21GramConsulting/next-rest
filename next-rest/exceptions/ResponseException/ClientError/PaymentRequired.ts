@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 402 Payment Required.
@@ -17,4 +17,4 @@ import {ClientError} from './ClientError';
  * for example blocked fraudulent payments.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class PaymentRequired extends ClientError {}
+export default class PaymentRequired extends ClientError {}

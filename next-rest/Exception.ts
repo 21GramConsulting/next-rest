@@ -8,7 +8,7 @@ import {FetchRequest} from '#FetchRequest';
  * @public
  * @group Exceptions
  */
-export class Exception extends Error {
+export default class Exception extends Error {
   /**
    * @summary The request in action when the exception was thrown.
    */

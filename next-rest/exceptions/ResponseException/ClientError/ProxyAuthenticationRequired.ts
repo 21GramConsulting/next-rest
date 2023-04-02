@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 407 Proxy Authentication Required.
@@ -6,4 +6,4 @@ import {ClientError} from './ClientError';
  * The client must first authenticate itself with the proxy.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class ProxyAuthenticationRequired extends ClientError {}
+export default class ProxyAuthenticationRequired extends ClientError {}

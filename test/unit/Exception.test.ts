@@ -1,4 +1,4 @@
-import {Exception} from '#Exception';
+import Exception from '#Exception';
 
 describe('Exception', () => {
   it('should expose the request & response passed to it', () => {

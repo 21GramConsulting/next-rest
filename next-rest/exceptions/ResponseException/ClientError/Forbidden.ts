@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 403 Forbidden.
@@ -15,4 +15,4 @@ import {ClientError} from './ClientError';
  * should not be repeated.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class Forbidden extends ClientError {}
+export default class Forbidden extends ClientError {}

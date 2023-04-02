@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 426 Upgrade Required.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * TLS/1.3, given in the Upgrade header field.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class UpgradeRequired extends ClientError {}
+export default class UpgradeRequired extends ClientError {}

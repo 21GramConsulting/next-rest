@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 422 Unprocessable Entity.
@@ -7,4 +7,4 @@ import {ClientError} from './ClientError';
  * due to semantic errors.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class UnprocessableEntity extends ClientError {}
+export default class UnprocessableEntity extends ClientError {}

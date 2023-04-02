@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 406 Not Acceptable.
@@ -8,4 +8,4 @@ import {ClientError} from './ClientError';
  * sent in the request. See Content negotiation.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class NotAcceptable extends ClientError {}
+export default class NotAcceptable extends ClientError {}

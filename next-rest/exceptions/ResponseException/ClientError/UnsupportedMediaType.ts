@@ -1,4 +1,4 @@
-import {ClientError} from './ClientError';
+import ClientError from './ClientError';
 
 /**
  * @summary Represents a 415 Unsupported Media Type.
@@ -9,4 +9,4 @@ import {ClientError} from './ClientError';
  * requires that images use a different format.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class UnsupportedMediaType extends ClientError {}
+export default class UnsupportedMediaType extends ClientError {}

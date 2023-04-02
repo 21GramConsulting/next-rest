@@ -1,4 +1,4 @@
-import {ResponseException} from '../ResponseException';
+import ResponseException from '../ResponseException';
 
 /**
  * @summary Represents a 4xx Client Error.
@@ -13,4 +13,4 @@ import {ResponseException} from '../ResponseException';
  * included entity to the user.
  * @group HTTP Response Exceptions: 4xx Client Error
  */
-export class ClientError extends ResponseException {}
+export default class ClientError extends ResponseException {}

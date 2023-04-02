@@ -1,4 +1,4 @@
-import {Exception} from '#Exception';
+import Exception from '#Exception';
 
 /**
  * @summary
@@ -8,4 +8,4 @@ import {Exception} from '#Exception';
  * HTTP Response related exceptions.
  * @group HTTP Response Exceptions
  */
-export class ResponseException extends Exception {}
+export default class ResponseException extends Exception {}
