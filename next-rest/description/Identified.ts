@@ -7,7 +7,7 @@
  * an identifier parameter.
  * @group Core API
  */
-export type Identified = {
+export type IdentityAware = {
   /**
    * @summary
    * The name of the identifier parameter.

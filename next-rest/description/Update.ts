@@ -3,7 +3,7 @@ import {UpdateHandler} from '#handlers/UpdateHandler';
 import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
-import {Identified} from "./Identified";
+import {IdentityAware} from "./Identified";
 
 /**
  * @summary
@@ -12,7 +12,7 @@ import {Identified} from "./Identified";
  * @template ID The type of the identifier of the resource.
  * @group Core API
  */
-export type Update<R, ID> = Coded<R> & Identified & {
+export type Update<R, ID> = Coded<R> & IdentityAware & {
   /**
    * @summary
    * The handler that will be used to update the resource.

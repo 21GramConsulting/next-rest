@@ -3,7 +3,7 @@ import {Identifier} from '#Identifier';
 import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
-import {Identified} from "./Identified";
+import {IdentityAware} from "./Identified";
 
 /**
  * @summary
@@ -12,7 +12,7 @@ import {Identified} from "./Identified";
  * @template ID The type of the resource's identifier.
  * @group Core API
  */
-export type Delete<R, ID> = Coded<R> & Identified & {
+export type Delete<R, ID> = Coded<R> & IdentityAware & {
   /**
    * @summary
    * The handler that deletes the resource.

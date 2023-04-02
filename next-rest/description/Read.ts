@@ -3,7 +3,7 @@ import {Identifier} from '#Identifier';
 import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
-import {Identified} from "./Identified";
+import {IdentityAware} from "./Identified";
 
 /**
  * @summary
@@ -16,7 +16,7 @@ import {Identified} from "./Identified";
  * @see ReadSet
  * @group Core API
  */
-export type Read<R, ID> = Coded<R> & Identified & {
+export type Read<R, ID> = Coded<R> & IdentityAware & {
   /**
    * @summary
    * The handler that will be used to read the resource.

@@ -1,6 +1,6 @@
 import {
   Description,
-  Identified,
+  IdentityAware,
   isDeletable,
   isReadable,
   isReadSetable,
@@ -123,7 +123,7 @@ const unsupportedMethod = (
 };
 
 const getIdentifier = <R, I, Q extends QueryOf<R>>(
-  description: Description<R, I, Q> & Identified,
+  description: Description<R, I, Q> & IdentityAware,
   request: NextApiRequest
 ): Identifier<I> | undefined => {
   // TODO: ID validator could be injected here
