@@ -122,7 +122,7 @@ const unsupportedMethod = (
   return response.status(405).end();
 };
 
-const getIdentifier = <R, I, Q extends QueryOf<R>>(
+const getIdentifier = <R, I, Q>(
   description: Description<R, I, Q> & IdentityAware,
   request: NextApiRequest
 ): Identifier<I> | undefined => {

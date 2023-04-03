@@ -1,3 +1,5 @@
+import {RecordShape} from '@21gram-consulting/ts-codec';
+
 /**
  * @summary
  * A description of a resource handler that can be queried.
@@ -5,18 +7,17 @@
  * Used for `ReadSet` mostly but not exclusively.
  * Apply this type if for whatever reason you would want to
  * support Query parameters for a non-`ReadSet` handler.
- * @template R The type of the resource.
  * @template Q The type of the resource's query.
  * @see ReadSet
  * @group Core API
  */
-export type Queried<R, Q> = {
+export type Queried<Q> = {
   /**
    * @summary
-   * The query shape to use for this resource.
+   * The query shape to use for for coding.
    * @description
    * This query shape will be wrapped in a `Codec` and used
-   * to encode & decode query parameters.
+   * to encode & decode query parameters.
    */
-  query: Q;
+  query: RecordShape<Q>;
 };

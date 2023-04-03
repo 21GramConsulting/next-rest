@@ -16,7 +16,7 @@ import {Queried} from './Queried';
  * @group Core API
  */
 export type ReadSet<R, Q> = Coded<R> &
-  Queried<R, Q> & {
+  Queried<Q> & {
     /**
      * @summary
      * The handler used to read the resource in sets.
@@ -33,7 +33,7 @@ export type ReadSet<R, Q> = Coded<R> &
  * @template I The type of the id.
  * @template Q The type of the query.
  */
-export const isReadSetable = <R, I, Q extends QueryOf<R>>(
+export const isReadSetable = <R, I, Q>(
   v: Description<R, I, Q>
 ): v is ReadSet<R, Q> => {
   const candidate = v as ReadSet<R, Q>;

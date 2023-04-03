@@ -6,26 +6,19 @@ import {
 } from '@21gram-consulting/ts-codec';
 import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
-import {Query as QueryOf} from '#Query';
-import {
-  isId,
-  isQueryDefined,
-  isSelection,
-  Selection as SelectionType,
-} from '#hook/Selection';
+import {isId, isQueryDefined, isSelection} from '#hook/Selection';
 import {Hook} from '#hook/Hook';
 import useSWR from 'swr';
 import fetch from '#hook/fetch';
 export function createHook<
   ID extends string,
   Resource extends Identifiable<ID>,
-  Query extends QueryOf<Resource>,
-  Selection extends SelectionType<ID, Resource, Query>
+  Query
 >(
   endpoint: string,
   codec: Codec<Resource>,
   query: RecordShape<Query>
-): UseHook<ID, Resource, Query, Selection> {
+): UseHook<ID, Resource, Query> {
   const queryCodec = urlSearchParams(query);
   const resourceCodec = json.optional(codec);
   const resourceSetCodec = json.set(codec);
