@@ -1,8 +1,9 @@
 import {Identifiable} from '#Identifiable';
 import {Hook} from '#hook/Hook';
+import {SWRConfiguration} from 'swr';
 
 export type UseHook<ID, Resource extends Identifiable<ID>, Query> = {
-  (selection: ID): Hook<ID, Resource>;
-  (selection: Query): Hook<ID, Set<Resource>>;
+  (selection: ID, swrConf?: SWRConfiguration): Hook<ID, Resource>;
+  (selection: Query, swrConf?: SWRConfiguration): Hook<ID, Set<Resource>>;
   (): Hook<ID, Set<Resource>>;
 };

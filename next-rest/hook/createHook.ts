@@ -8,8 +8,9 @@ import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
 import {isId, isQueryDefined, isSelection} from '#hook/Selection';
 import {Hook} from '#hook/Hook';
-import useSWR from 'swr';
+import useSWR, {SWRConfiguration} from 'swr';
 import fetch from '#hook/fetch';
+
 export function createHook<
   ID extends string,
   Resource extends Identifiable<ID>,
@@ -23,9 +24,15 @@ export function createHook<
   const resourceCodec = json.optional(codec);
   const resourceSetCodec = json.set(codec);
 
-  function useHook(selection: ID): Hook<ID, Resource>;
-  function useHook(selection?: Query): Hook<ID, Set<Resource>>;
-  function useHook(selection: any): any {
+  function useHook(
+    selection: ID,
+    swrConf?: SWRConfiguration
+  ): Hook<ID, Resource>;
+  function useHook(
+    selection?: Query,
+    swrConf?: SWRConfiguration
+  ): Hook<ID, Set<Resource>>;
+  function useHook(selection: any, swrConfig?: SWRConfiguration): any {
     const key = isId(selection)
       ? endpoint.concat('/').concat(selection)
       : isQueryDefined(selection)
@@ -39,10 +46,7 @@ export function createHook<
           : resourceCodec.decode(r)
       );
 
-    const {data, error, isValidating} = useSWR(key, outputReader, {
-      // TODO: refresh interval will be fun to tinker with
-      refreshInterval: 500,
-    });
+    const {data, error, isValidating} = useSWR(key, outputReader, swrConfig);
 
     const output = isValidating ? undefined : error ?? data ?? null;
 
