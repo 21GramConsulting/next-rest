@@ -39,10 +39,13 @@ export const handler: Handler = description => async (request, response) => {
     }
     if (!isReadSetable(description))
       return unsupportedMethod(response, 'Resource has no readSet api.');
-    const requestUrl = new URL(request.url ?? '');
+    let rawQuery = '';
+    if (request.url?.includes('?')) {
+      rawQuery = request.url.split('?').pop() ?? '';
+    }
     return description.readSet(
       json.set(description.codec),
-      urlSearchParams(description.query).decode(requestUrl.search),
+      urlSearchParams(description.query).decode(rawQuery),
       request,
       response
     );
