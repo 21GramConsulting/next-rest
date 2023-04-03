@@ -1,4 +1,3 @@
-import {Query as QueryOf} from '#Query';
 import {CreateHandler} from '#handlers/CreateHandler';
 import {Coded} from './Coded';
 import {Description} from './Description';
@@ -27,7 +26,7 @@ export type Create<R> = Coded<R> & {
  * @returns True if the description is a create description.
  * @template R The type of the resource.
  */
-export const isCreatable = <R, I, Q extends QueryOf<R>>(
+export const isCreatable = <R, I, Q>(
   v: Description<R, I, Q>
 ): v is Create<R> => {
   const candidate = v as Create<R>;

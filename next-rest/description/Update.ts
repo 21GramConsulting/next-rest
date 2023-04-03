@@ -1,6 +1,5 @@
 import {Identifier} from '#Identifier';
 import {UpdateHandler} from '#handlers/UpdateHandler';
-import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
 import {IdentityAware} from './Identified';
@@ -30,7 +29,7 @@ export type Update<R, ID> = Coded<R> &
  * @template I The type of the identifier of the resource.
  * @template Q The type of the query of the resource.
  */
-export const isUpdatable = <R, I, Q extends QueryOf<R>>(
+export const isUpdatable = <R, I, Q>(
   v: Description<R, I, Q>
 ): v is Update<R, I> => {
   const candidate = v as Update<R, I>;

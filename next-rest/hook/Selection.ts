@@ -1,45 +1,21 @@
-import {Identifiable} from '#Identifiable';
-import {Query as QueryOf} from '#Query';
+export type Selection<ID, Query> = Query | ID | undefined;
 
-export type Selection<
-  ID,
-  Resource extends Identifiable<ID>,
-  Query extends QueryOf<Resource>
-> = Query | ID | undefined;
+export const isSelection = <ID, Query>(
+  selection: unknown
+): selection is Selection<ID, Query> => isId(selection) || isQuery(selection);
 
-export const isSelection = <
-  ID,
-  Resource extends Identifiable<ID>,
-  Query extends QueryOf<Resource>
->(
-  selection: any
-): selection is Selection<ID, Resource, Query> =>
-  isId(selection) || isQuery(selection);
-export const isId = <
-  ID,
-  Resource extends Identifiable<ID>,
-  Query extends QueryOf<Resource>
->(
-  selection: Selection<ID, Resource, Query>
+export const isId = <ID, Query>(
+  selection: Selection<ID, Query>
 ): selection is ID => typeof selection === 'string';
-export const isQuery = <
-  ID,
-  Resource extends Identifiable<ID>,
-  Query extends QueryOf<Resource>
->(
-  selection: Selection<ID, Resource, Query>
+
+export const isQuery = <ID, Query>(
+  selection: Selection<ID, Query>
 ): selection is Query => isQueryDefined(selection) || isUndefined(selection);
-export const isQueryDefined = <
-  ID,
-  Resource extends Identifiable<ID>,
-  Query extends QueryOf<Resource>
->(
-  selection: Selection<ID, Resource, Query>
+
+export const isQueryDefined = <ID, Query>(
+  selection: Selection<ID, Query>
 ): selection is Query => typeof selection === 'object';
-export const isUndefined = <
-  ID,
-  Resource extends Identifiable<ID>,
-  Query extends QueryOf<Resource>
->(
-  selection: Selection<ID, Resource, Query>
+
+export const isUndefined = <ID, Query>(
+  selection: Selection<ID, Query>
 ): selection is ID => typeof selection === 'undefined';

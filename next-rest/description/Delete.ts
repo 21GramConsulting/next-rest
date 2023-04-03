@@ -1,6 +1,5 @@
 import {ReadHandler} from '#handlers/ReadHandler';
 import {Identifier} from '#Identifier';
-import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
 import {IdentityAware} from './Identified';
@@ -30,7 +29,7 @@ export type Delete<R, ID> = Coded<R> &
  * @template R The type of the resource.
  * @template I The type of the resource's identifier.
  */
-export const isDeletable = <R, I, Q extends QueryOf<R>>(
+export const isDeletable = <R, I, Q>(
   v: Description<R, I, Q>
 ): v is Delete<R, I> => {
   const candidate = v as Delete<R, I>;

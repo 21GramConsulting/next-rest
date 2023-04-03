@@ -1,6 +1,5 @@
 import {ReadHandler} from '#handlers/ReadHandler';
 import {Identifier} from '#Identifier';
-import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
 import {IdentityAware} from './Identified';
@@ -34,7 +33,7 @@ export type Read<R, ID> = Coded<R> &
  * @template I The type of the identifier.
  * @template Q The type of the query.
  */
-export const isReadable = <R, I, Q extends QueryOf<R>>(
+export const isReadable = <R, I, Q>(
   v: Description<R, I, Q>
 ): v is Read<R, I> => {
   const candidate = v as Read<R, I>;

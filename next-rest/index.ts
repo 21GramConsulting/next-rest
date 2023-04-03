@@ -10,7 +10,6 @@ export * from './Identifiable';
 export * from './Identifier';
 
 export * from './description';
-export * from './Query';
 
 export * from './handler';
 export * from './hook';

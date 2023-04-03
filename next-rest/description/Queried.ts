@@ -1,5 +1,3 @@
-import {Query as QueryOf} from '#Query';
-
 /**
  * @summary
  * A description of a resource handler that can be queried.
@@ -12,7 +10,7 @@ import {Query as QueryOf} from '#Query';
  * @see ReadSet
  * @group Core API
  */
-export type Queried<R, Q extends QueryOf<R>> = {
+export type Queried<R, Q> = {
   /**
    * @summary
    * The query shape to use for this resource.

@@ -1,5 +1,4 @@
 import {ReadHandler} from '#handlers/ReadHandler';
-import {Query as QueryOf} from '#Query';
 import {Coded} from './Coded';
 import {Description} from './Description';
 import {Queried} from './Queried';
@@ -16,7 +15,7 @@ import {Queried} from './Queried';
  * @see Read
  * @group Core API
  */
-export type ReadSet<R, Q extends QueryOf<R>> = Coded<R> &
+export type ReadSet<R, Q> = Coded<R> &
   Queried<R, Q> & {
     /**
      * @summary

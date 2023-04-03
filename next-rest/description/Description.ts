@@ -1,4 +1,3 @@
-import {Query as QueryOf} from '#Query';
 import {Create} from './Create';
 import {Read} from './Read';
 import {ReadSet} from './ReadSet';
@@ -16,7 +15,7 @@ import {Update} from './Update';
  * @template Query The type of the resource's query.
  * @group Core API
  */
-export type Description<Resource, ID, Query extends QueryOf<Resource>> =
+export type Description<Resource, ID, Query> =
   | Create<Resource>
   | ReadSet<Resource, Query>
   | Read<Resource, ID>
