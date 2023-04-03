@@ -10,7 +10,7 @@ import {isCreatable} from '#description/Create';
 import {isHttpMethod} from '#Methods';
 import {NextApiHandler, NextApiRequest, NextApiResponse} from 'next';
 import {Query as QueryOf} from '#Query';
-import {json} from '@21gram-consulting/ts-codec';
+import {json, urlSearchParams} from '@21gram-consulting/ts-codec';
 import {Identifier} from '#Identifier';
 
 type Handler = <Resource, ID, Query extends QueryOf<Resource>>(
@@ -42,7 +42,7 @@ export const handler: Handler = description => async (request, response) => {
       return unsupportedMethod(response, 'Resource has no readSet api.');
     return description.readSet(
       json.set(description.codec),
-      description.queryCodec.decode(JSON.stringify(request.query)),
+      json.record(description.query).decode(JSON.stringify(request.query)),
       request,
       response
     );

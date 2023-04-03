@@ -1,4 +1,3 @@
-import {Codec} from '@21gram-consulting/ts-codec';
 import {Query as QueryOf} from '#Query';
 
 /**
@@ -16,7 +15,10 @@ import {Query as QueryOf} from '#Query';
 export type Queried<R, Q extends QueryOf<R>> = {
   /**
    * @summary
-   * The codec used to encode and decode the query.
+   * The query shape to use for this resource.
+   * @description
+   * This query shape will be wrapped in a `Codec` and used
+   * to encode & decode query parameters.
    */
-  queryCodec: Codec<Q>;
+  query: Q;
 };

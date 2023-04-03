@@ -38,6 +38,6 @@ export const isReadSetable = <R, I, Q extends QueryOf<R>>(
   v: Description<R, I, Q>
 ): v is ReadSet<R, Q> => {
   const candidate = v as ReadSet<R, Q>;
-  if (typeof candidate.queryCodec !== 'object') return false;
+  if (typeof candidate.query !== 'object') return false;
   return typeof candidate.readSet === 'function';
 };
