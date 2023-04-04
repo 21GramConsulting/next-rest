@@ -70,12 +70,13 @@ export function createHook<
       const uri = endpoint.concat('/').concat(value.id);
       // TODO: revisit for a slightly more elegant solution.
       // This forced typecast at the time of writing is 100% safe.
-      const freshData = (await outputReader(uri)) as Resource | undefined;
-      if (!freshData) {
-        return fetch(endpoint, {...payload, method: 'POST'}).then(r =>
-          resourceCodec.decode(r)
-        );
-      }
+      // TODO: SECOND TODO; This branching was/is for PUT, UPDATE, POST calls. Will revisit in OSS.
+      // const freshData = (await outputReader(uri)) as Resource | undefined;
+      // if (!freshData) {
+      //   return fetch(endpoint, {...payload, method: 'POST'}).then(r =>
+      //     resourceCodec.decode(r)
+      //   );
+      // }
 
       return fetch(uri, {...payload, method: 'PUT'}).then(r =>
         resourceCodec.decode(r)

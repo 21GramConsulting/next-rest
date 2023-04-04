@@ -130,7 +130,12 @@ const getIdentifier = <R, I, Q>(
   request: NextApiRequest
 ): Identifier<I> | undefined => {
   // TODO: ID validator could be injected here
-  const id = request.query[description.idParameterName];
+  // TODO: Revisit & redesign. Either we were drunk or the Next API changed here.
+  let id: unknown = request.query[description.idParameterName];
+  if (Array.isArray(id)) {
+    if (!id[0]) return;
+    id = id[0];
+  }
   if (typeof id !== 'string') return;
   return id as Identifier<I>;
 };

@@ -8,7 +8,7 @@ export type HttpMethod = (typeof httpMethods)[number];
  * Runtime list of HTTP methods supported by the `next-rest`
  * library.
  * @description
- * This list is useful for validations and type guards motly
+ * This list is useful for validations and type guards mostly
  * but not exclusively.
  * @internal
  */
