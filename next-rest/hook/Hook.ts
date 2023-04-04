@@ -2,7 +2,11 @@ import Exception from '#Exception';
 import {Identifiable, Identified} from '#Identifiable';
 
 export type Processing = undefined;
+export const processing = undefined;
+
 export type NoResult = null;
+export const noResult = null;
+
 export type Result<R> = R extends Set<
   infer Resource extends Identified<infer ID>
 >

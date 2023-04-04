@@ -1,9 +1,9 @@
 import {Codec} from '@21gram-consulting/ts-codec';
 import {NextApiRequest, NextApiResponse} from 'next';
 
-export type ReadHandler<Resource, Query> = (
+export type ReadHandler<Resource, ID> = (
   codec: Codec<Resource>,
-  query: Query,
+  id: ID,
   request: NextApiRequest,
   response: NextApiResponse
 ) => Promise<unknown>;
