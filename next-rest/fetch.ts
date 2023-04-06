@@ -1,17 +1,17 @@
 import assertResponse from '#assertResponse';
-import {RawData} from '@21gram-consulting/ts-codec';
 
 export default async function (
   input: RequestInfo | URL,
   init?: RequestInit
-): Promise<RawData> {
+): Promise<Response> {
   return fetch(input, {
     ...init,
     headers: {
       'Content-Type': 'application/json',
+      ...init?.headers,
     },
   }).then(response => {
     assertResponse(input, response);
-    return response.text();
+    return response;
   });
 }

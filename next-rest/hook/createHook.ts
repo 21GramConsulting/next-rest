@@ -40,11 +40,13 @@ export function createHook<
       : undefined;
 
     const outputReader = (uri: string) =>
-      fetch(uri).then(r =>
-        isSelection(selection)
-          ? resourceSetCodec.decode(r)
-          : resourceCodec.decode(r)
-      );
+      fetch(uri)
+        .then(r => r.text())
+        .then(r =>
+          isSelection(selection)
+            ? resourceSetCodec.decode(r)
+            : resourceCodec.decode(r)
+        );
 
     const {data, error, isValidating} = useSWR(key, outputReader, swrConfig);
 
@@ -62,9 +64,9 @@ export function createHook<
         body: resourceCodec.encode(value),
       };
       if (isUnidentified<ID>(value)) {
-        return fetch(endpoint, {...payload, method: 'POST'}).then(r =>
-          resourceCodec.decode(r)
-        );
+        return fetch(endpoint, {...payload, method: 'POST'})
+          .then(r => r.text())
+          .then(r => resourceCodec.decode(r));
       }
 
       const uri = endpoint.concat('/').concat(value.id);
