@@ -6,7 +6,7 @@ import {
 } from '@21gram-consulting/ts-codec';
 import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
-import {isId, isQueryDefined, isSelection} from '#hook/Selection';
+import {isId, isQueryDefined, isSelection} from '#Selection';
 import {Hook} from '#hook/Hook';
 import useSWR, {SWRConfiguration} from 'swr';
 import fetch from '#fetch';
@@ -43,9 +43,7 @@ export function createHook<
       fetch(uri)
         .then(r => r.text())
         .then(r =>
-          isSelection(selection)
-            ? resourceSetCodec.decode(r)
-            : resourceCodec.decode(r)
+          isId(selection) ? resourceCodec.decode(r) : resourceSetCodec.decode(r)
         );
 
     const {data, error, isValidating} = useSWR(key, outputReader, swrConfig);
@@ -80,9 +78,9 @@ export function createHook<
       //   );
       // }
 
-      return fetch(uri, {...payload, method: 'PUT'}).then(r =>
-        resourceCodec.decode(r)
-      );
+      return fetch(uri, {...payload, method: 'PUT'})
+        .then(r => r.text())
+        .then(r => resourceCodec.decode(r));
     }
 
     async function remove(
@@ -94,7 +92,9 @@ export function createHook<
       }
 
       const uri = endpoint.concat('/').concat(value.id);
-      await fetch(uri, {method: 'DELETE'}).then(r => resourceCodec.decode(r));
+      await fetch(uri, {method: 'DELETE'})
+        .then(v => v.text())
+        .then(r => resourceCodec.decode(r));
     }
 
     return [output, write, remove];
