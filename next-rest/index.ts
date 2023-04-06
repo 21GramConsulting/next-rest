@@ -8,6 +8,7 @@ export {default as Exception} from './Exception';
 export * from './FetchRequest';
 export * from './Identifiable';
 export * from './Identifier';
+export * from './connector';
 
 export * from './description';
 

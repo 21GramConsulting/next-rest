@@ -9,7 +9,7 @@ import {Identifiable, Identified, isUnidentified} from '#Identifiable';
 import {isId, isQueryDefined, isSelection} from '#hook/Selection';
 import {Hook} from '#hook/Hook';
 import useSWR, {SWRConfiguration} from 'swr';
-import fetch from '#hook/fetch';
+import fetch from '#fetch';
 
 export function createHook<
   ID extends string,

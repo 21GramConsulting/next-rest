@@ -1,6 +1,6 @@
 import {FetchRequest} from '#FetchRequest';
-import {clientError} from '#hook/assertResponse/clientError';
-import {serverError} from '#hook/assertResponse/serverError';
+import {clientError} from '#assertResponse/clientError';
+import {serverError} from '#assertResponse/serverError';
 import Exception from '#Exception';
 
 export default (
