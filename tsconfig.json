@@ -25,6 +25,9 @@
       "!component/*": [
         "./test/component/*"
       ],
+      "!integration/*": [
+        "./test/integration/*"
+      ],
       "!system/*": [
         "./test/system/*"
       ]
