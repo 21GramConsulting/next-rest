@@ -1,12 +1,13 @@
 import {Identifiable} from '#Identifiable';
+import {CancellablePromise} from 'real-cancellable-promise';
 
 export type Connector<ID, Resource extends Identifiable<ID>, Query> = {
-  (selection: ID): Promise<Resource>;
-  (selection: Query): Promise<Set<Resource>>;
-  (resource: Resource): Promise<Resource>;
-  (resources: Set<Resource>): Promise<Set<Resource>>;
+  (selection: ID): CancellablePromise<Resource>;
+  (selection: Query): CancellablePromise<Set<Resource>>;
+  (resource: Resource): CancellablePromise<Resource>;
+  (resources: Set<Resource>): CancellablePromise<Set<Resource>>;
   delete: {
-    (resource: Resource): Promise<void>;
-    (resources: Set<Resource>): Promise<void>;
+    (resource: Resource): CancellablePromise<void>;
+    (resources: Set<Resource>): CancellablePromise<void>;
   };
 };

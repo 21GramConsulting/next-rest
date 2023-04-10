@@ -1,5 +1,6 @@
 import Exception from '#Exception';
 import {Identifiable, Identified} from '#Identifiable';
+import {CancellablePromise} from 'real-cancellable-promise';
 
 export type Processing = undefined;
 export const processing = undefined;
@@ -17,10 +18,10 @@ export type Result<R> = R extends Set<
 export type SuccessfulRemoval = undefined;
 
 export type Output<R> = Processing | NoResult | Result<R> | Exception;
-export type Write<R> = (value: R) => Promise<Result<R>>;
+export type Write<R> = (value: R) => CancellablePromise<Result<R>>;
 export type Remove<R, ID> = (
   value: R & Identified<ID>
-) => Promise<SuccessfulRemoval>;
+) => CancellablePromise<SuccessfulRemoval>;
 
 export type Hook<ID, R> = R extends Set<infer Resource extends Identifiable<ID>>
   ? [
