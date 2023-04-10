@@ -7,8 +7,8 @@ export default async function (
   return fetch(input, {
     ...init,
     headers: {
-      'Content-Type': 'application/json',
       ...init?.headers,
+      'Content-Type': 'application/json',
     },
   }).then(response => {
     assertResponse(input, response);
