@@ -1,8 +1,6 @@
-import {Identifiable, isUnidentified} from '#Identifiable';
-import {json, urlSearchParams} from '@21gram-consulting/ts-codec';
+import {Identifiable} from '#Identifiable';
 import {Connector} from './Connector';
-import {isId, isQueryDefined, isSelection} from '#Selection';
-import fetch from '#fetch';
+import {isId, isQueryDefined} from '#Selection';
 import {ClientDescriptor} from '#ClientDescriptor';
 import createDeletion from '#clientAction/createDeletion';
 import createInsertion from '#clientAction/createInsertion';
