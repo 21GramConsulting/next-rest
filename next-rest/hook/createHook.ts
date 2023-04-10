@@ -6,7 +6,7 @@ import {
 } from '@21gram-consulting/ts-codec';
 import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
-import {isId, isQueryDefined, isSelection} from '#Selection';
+import {isId, isQueryDefined} from '#Selection';
 import {Hook} from '#hook/Hook';
 import useSWR, {SWRConfiguration} from 'swr';
 import fetch from '#fetch';
