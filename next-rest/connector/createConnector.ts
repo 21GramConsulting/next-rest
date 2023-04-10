@@ -5,6 +5,7 @@ import {isId, isQueryDefined} from '#Selection';
 import fetch from '#fetch';
 import {ClientDescriptor} from '#ClientDescriptor';
 import createDeletion from '#clientAction/createDeletion';
+import createInsertion from '#clientAction/createInsertion';
 
 export default function createConnector<
   ID extends string,
@@ -15,6 +16,8 @@ export default function createConnector<
 ): Connector<ID, Resource, Query> {
   const queryCodec = urlSearchParams(descriptor.query);
   const resourceSetCodec = json.set(descriptor.codec);
+  const insertion = createInsertion(descriptor);
+  const deletion = createDeletion(descriptor);
 
   async function connector(selection: ID): Promise<Resource>;
   async function connector(selection: Query): Promise<Set<Resource>>;
@@ -28,38 +31,17 @@ export default function createConnector<
       : undefined;
 
     if (uri) {
-      return fetch(uri, descriptor.requestInit)
+      return fetch(uri, {...descriptor.requestInit, method: 'GET'})
         .then(r => r.text())
         .then(r =>
           isId(arg1) ? descriptor.codec.decode(r) : resourceSetCodec.decode(r)
         );
     }
 
-    if (arg1 instanceof Set)
-      return new Set(await Promise.all(Array.from(arg1).map(connector)));
-
-    const payload: RequestInit = {body: descriptor.codec.encode(arg1)};
-
-    if (isUnidentified<ID>(arg1)) {
-      return fetch(descriptor.endpoint, {
-        ...payload,
-        ...descriptor.requestInit,
-        method: 'POST',
-      })
-        .then(r => r.text())
-        .then(r => descriptor.codec.decode(r));
-    }
-
-    return fetch(descriptor.endpoint.concat('/').concat(arg1.id), {
-      ...payload,
-      ...descriptor.requestInit,
-      method: 'PUT',
-    })
-      .then(r => r.text())
-      .then(r => descriptor.codec.decode(r));
+    return insertion(arg1);
   }
 
-  connector.delete = createDeletion(descriptor);
+  connector.delete = deletion;
 
   return connector;
 }

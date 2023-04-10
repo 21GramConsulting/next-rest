@@ -1,12 +1,13 @@
 import {urlSearchParams, json} from '@21gram-consulting/ts-codec';
 import {UseHook} from '#hook/UseHook';
-import {Identifiable, Identified, isUnidentified} from '#Identifiable';
+import {Identifiable} from '#Identifiable';
 import {isId, isQueryDefined} from '#Selection';
 import {Hook} from '#hook/Hook';
 import useSWR, {SWRConfiguration} from 'swr';
 import fetch from '#fetch';
 import {ClientDescriptor} from '#ClientDescriptor';
 import createDeletion from '#clientAction/createDeletion';
+import createInsertion from '#clientAction/createInsertion';
 
 export function createHook<
   ID extends string,
@@ -45,43 +46,7 @@ export function createHook<
 
     const output = isValidating ? undefined : error ?? data ?? null;
 
-    async function write(value: Resource): Promise<Resource & Identified<ID>>;
-    async function write(
-      value: Set<Resource>
-    ): Promise<Set<Resource & Identified<ID>>>;
-    async function write(value: any): Promise<any> {
-      if (value instanceof Set)
-        return new Set(await Promise.all(Array.from(value).map(write)));
-
-      const payload: RequestInit = {
-        body: resourceCodec.encode(value),
-      };
-      if (isUnidentified<ID>(value)) {
-        return fetch(descriptor.endpoint, {
-          ...payload,
-          ...descriptor.requestInit,
-          method: 'POST',
-        })
-          .then(r => r.text())
-          .then(r => resourceCodec.decode(r));
-      }
-
-      const uri = descriptor.endpoint.concat('/').concat(value.id);
-      // TODO: revisit for a slightly more elegant solution.
-      // This forced typecast at the time of writing is 100% safe.
-      // TODO: SECOND TODO; This branching was/is for PUT, UPDATE, POST calls. Will revisit in OSS.
-      // const freshData = (await outputReader(uri)) as Resource | undefined;
-      // if (!freshData) {
-      //   return fetch(endpoint, {...payload, ...descriptor.requestInit, method: 'POST'}).then(r =>
-      //     resourceCodec.decode(r)
-      //   );
-      // }
-
-      return fetch(uri, {...payload, ...descriptor.requestInit, method: 'PUT'})
-        .then(r => r.text())
-        .then(r => resourceCodec.decode(r));
-    }
-
+    const write = createInsertion(descriptor);
     const remove = createDeletion(descriptor);
 
     return [output, write, remove];
