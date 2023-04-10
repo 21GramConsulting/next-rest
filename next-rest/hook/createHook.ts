@@ -6,7 +6,7 @@ import {Hook} from '#hook/Hook';
 import useSWR, {SWRConfiguration} from 'swr';
 import fetch from '#fetch';
 import {ClientDescriptor} from '#ClientDescriptor';
-import createDeletion from '#clientAction/remove';
+import createDeletion from '#clientAction/createDeletion';
 
 export function createHook<
   ID extends string,

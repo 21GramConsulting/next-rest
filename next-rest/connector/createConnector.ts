@@ -4,7 +4,7 @@ import {Connector} from './Connector';
 import {isId, isQueryDefined} from '#Selection';
 import fetch from '#fetch';
 import {ClientDescriptor} from '#ClientDescriptor';
-import createDeletion from '#clientAction/remove';
+import createDeletion from '#clientAction/createDeletion';
 
 export default function createConnector<
   ID extends string,
