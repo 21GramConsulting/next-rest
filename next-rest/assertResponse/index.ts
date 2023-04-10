@@ -1,6 +1,6 @@
 import {FetchRequest} from '#FetchRequest';
-import {clientError} from '#assertResponse/clientError';
-import {serverError} from '#assertResponse/serverError';
+import {clientError} from './clientError';
+import {serverError} from './serverError';
 import Exception from '#Exception';
 
 export default (
