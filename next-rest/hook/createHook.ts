@@ -34,7 +34,7 @@ export function createHook<
       : undefined;
 
     const outputReader = (uri: string) =>
-      fetch(uri)
+      fetch(uri, descriptor.requestInit)
         .then(r => r.text())
         .then(r =>
           isId(selection) ? resourceCodec.decode(r) : resourceSetCodec.decode(r)
@@ -56,7 +56,11 @@ export function createHook<
         body: resourceCodec.encode(value),
       };
       if (isUnidentified<ID>(value)) {
-        return fetch(descriptor.endpoint, {...payload, method: 'POST'})
+        return fetch(descriptor.endpoint, {
+          ...payload,
+          ...descriptor.requestInit,
+          method: 'POST',
+        })
           .then(r => r.text())
           .then(r => resourceCodec.decode(r));
       }
@@ -67,12 +71,12 @@ export function createHook<
       // TODO: SECOND TODO; This branching was/is for PUT, UPDATE, POST calls. Will revisit in OSS.
       // const freshData = (await outputReader(uri)) as Resource | undefined;
       // if (!freshData) {
-      //   return fetch(endpoint, {...payload, method: 'POST'}).then(r =>
+      //   return fetch(endpoint, {...payload, ...descriptor.requestInit, method: 'POST'}).then(r =>
       //     resourceCodec.decode(r)
       //   );
       // }
 
-      return fetch(uri, {...payload, method: 'PUT'})
+      return fetch(uri, {...payload, ...descriptor.requestInit, method: 'PUT'})
         .then(r => r.text())
         .then(r => resourceCodec.decode(r));
     }
@@ -86,7 +90,7 @@ export function createHook<
       }
 
       const uri = descriptor.endpoint.concat('/').concat(value.id);
-      await fetch(uri, {method: 'DELETE'})
+      await fetch(uri, {...descriptor.requestInit, method: 'DELETE'})
         .then(v => v.text())
         .then(r => resourceCodec.decode(r));
     }

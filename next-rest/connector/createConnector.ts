@@ -27,7 +27,7 @@ export default function createConnector<
       : undefined;
 
     if (uri) {
-      return fetch(uri)
+      return fetch(uri, descriptor.requestInit)
         .then(r => r.text())
         .then(r =>
           isId(arg1) ? descriptor.codec.decode(r) : resourceSetCodec.decode(r)
@@ -40,13 +40,18 @@ export default function createConnector<
     const payload: RequestInit = {body: descriptor.codec.encode(arg1)};
 
     if (isUnidentified<ID>(arg1)) {
-      return fetch(descriptor.endpoint, {...payload, method: 'POST'})
+      return fetch(descriptor.endpoint, {
+        ...payload,
+        ...descriptor.requestInit,
+        method: 'POST',
+      })
         .then(r => r.text())
         .then(r => descriptor.codec.decode(r));
     }
 
     return fetch(descriptor.endpoint.concat('/').concat(arg1.id), {
       ...payload,
+      ...descriptor.requestInit,
       method: 'PUT',
     })
       .then(r => r.text())
@@ -62,7 +67,7 @@ export default function createConnector<
     }
 
     const uri = descriptor.endpoint.concat('/').concat(value.id);
-    await fetch(uri, {method: 'DELETE'})
+    await fetch(uri, {...descriptor.requestInit, method: 'DELETE'})
       .then(v => v.text())
       .then(r => descriptor.codec.decode(r));
   }
