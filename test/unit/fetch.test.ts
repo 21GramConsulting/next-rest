@@ -41,6 +41,7 @@ describe('fetch', () => {
     global.fetch = mockFetch;
     fetch('http://localhost:3000');
     expect(mockFetch.mock.calls[0][1]).toEqual({
+      signal: new AbortController().signal,
       headers: {'Content-Type': 'application/json'},
     });
   });
@@ -54,6 +55,7 @@ describe('fetch', () => {
       headers: {'X-Test': 'test'},
     });
     expect(mockFetch.mock.calls[0][1]).toEqual({
+      signal: new AbortController().signal,
       headers: {'Content-Type': 'application/json', 'X-Test': 'test'},
     });
   });
@@ -64,9 +66,11 @@ describe('fetch', () => {
     });
     global.fetch = mockFetch;
     fetch('http://localhost:3000', {
+      signal: new AbortController().signal,
       headers: {'Content-Type': 'text/plain'},
     });
     expect(mockFetch.mock.calls[0][1]).toEqual({
+      signal: new AbortController().signal,
       headers: {'Content-Type': 'application/json'},
     });
   });

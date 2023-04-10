@@ -88,5 +88,8 @@
         "statements": 100
       }
     }
+  },
+  "dependencies": {
+    "real-cancellable-promise": "^1.1.2"
   }
 }
