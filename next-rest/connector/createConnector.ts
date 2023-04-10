@@ -7,6 +7,7 @@ import {
 } from '@21gram-consulting/ts-codec';
 import {Connector} from './Connector';
 import {isId, isQueryDefined} from '#Selection';
+import fetch from '#fetch';
 
 export default function createConnector<
   ID extends string,
