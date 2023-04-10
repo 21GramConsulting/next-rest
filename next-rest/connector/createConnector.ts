@@ -4,6 +4,7 @@ import {Connector} from './Connector';
 import {isId, isQueryDefined} from '#Selection';
 import fetch from '#fetch';
 import {ClientDescriptor} from '#ClientDescriptor';
+import createDeletion from '#clientAction/remove';
 
 export default function createConnector<
   ID extends string,
@@ -58,20 +59,7 @@ export default function createConnector<
       .then(r => descriptor.codec.decode(r));
   }
 
-  async function deletion(resource: Resource): Promise<void>;
-  async function deletion(resources: Set<Resource>): Promise<void>;
-  async function deletion(value: any): Promise<void> {
-    if (value instanceof Set) {
-      await Promise.all(Array.from(value).map(deletion));
-      return;
-    }
+  connector.delete = createDeletion(descriptor);
 
-    const uri = descriptor.endpoint.concat('/').concat(value.id);
-    await fetch(uri, {...descriptor.requestInit, method: 'DELETE'})
-      .then(v => v.text())
-      .then(r => descriptor.codec.decode(r));
-  }
-
-  connector.delete = deletion;
   return connector;
 }

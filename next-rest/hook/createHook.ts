@@ -6,6 +6,7 @@ import {Hook} from '#hook/Hook';
 import useSWR, {SWRConfiguration} from 'swr';
 import fetch from '#fetch';
 import {ClientDescriptor} from '#ClientDescriptor';
+import createDeletion from '#clientAction/remove';
 
 export function createHook<
   ID extends string,
@@ -81,19 +82,7 @@ export function createHook<
         .then(r => resourceCodec.decode(r));
     }
 
-    async function remove(
-      value: (Resource & Identified<ID>) | Set<Resource & Identified<ID>>
-    ) {
-      if (value instanceof Set) {
-        await Promise.all(Array.from(value).map(remove));
-        return;
-      }
-
-      const uri = descriptor.endpoint.concat('/').concat(value.id);
-      await fetch(uri, {...descriptor.requestInit, method: 'DELETE'})
-        .then(v => v.text())
-        .then(r => resourceCodec.decode(r));
-    }
+    const remove = createDeletion(descriptor);
 
     return [output, write, remove];
   }
