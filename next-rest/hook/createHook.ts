@@ -1,28 +1,22 @@
-import {
-  Codec,
-  RecordShape,
-  urlSearchParams,
-  json,
-} from '@21gram-consulting/ts-codec';
+import {urlSearchParams, json} from '@21gram-consulting/ts-codec';
 import {UseHook} from '#hook/UseHook';
 import {Identifiable, Identified, isUnidentified} from '#Identifiable';
 import {isId, isQueryDefined} from '#Selection';
 import {Hook} from '#hook/Hook';
 import useSWR, {SWRConfiguration} from 'swr';
 import fetch from '#fetch';
+import {ClientDescriptor} from '#ClientDescriptor';
 
 export function createHook<
   ID extends string,
   Resource extends Identifiable<ID>,
   Query
 >(
-  endpoint: string,
-  codec: Codec<Resource>,
-  query: RecordShape<Query>
+  descriptor: ClientDescriptor<ID, Resource, Query>
 ): UseHook<ID, Resource, Query> {
-  const queryCodec = urlSearchParams(query);
-  const resourceCodec = json.optional(codec);
-  const resourceSetCodec = json.set(codec);
+  const queryCodec = urlSearchParams(descriptor.query);
+  const resourceCodec = json.optional(descriptor.codec);
+  const resourceSetCodec = json.set(descriptor.codec);
 
   function useHook(
     selection: ID,
@@ -34,9 +28,9 @@ export function createHook<
   ): Hook<ID, Set<Resource>>;
   function useHook(selection: any, swrConfig?: SWRConfiguration): any {
     const key = isId(selection)
-      ? endpoint.concat('/').concat(selection)
+      ? descriptor.endpoint.concat('/').concat(selection)
       : isQueryDefined(selection)
-      ? endpoint.concat('?').concat(queryCodec.encode(selection))
+      ? descriptor.endpoint.concat('?').concat(queryCodec.encode(selection))
       : undefined;
 
     const outputReader = (uri: string) =>
@@ -62,12 +56,12 @@ export function createHook<
         body: resourceCodec.encode(value),
       };
       if (isUnidentified<ID>(value)) {
-        return fetch(endpoint, {...payload, method: 'POST'})
+        return fetch(descriptor.endpoint, {...payload, method: 'POST'})
           .then(r => r.text())
           .then(r => resourceCodec.decode(r));
       }
 
-      const uri = endpoint.concat('/').concat(value.id);
+      const uri = descriptor.endpoint.concat('/').concat(value.id);
       // TODO: revisit for a slightly more elegant solution.
       // This forced typecast at the time of writing is 100% safe.
       // TODO: SECOND TODO; This branching was/is for PUT, UPDATE, POST calls. Will revisit in OSS.
@@ -91,7 +85,7 @@ export function createHook<
         return;
       }
 
-      const uri = endpoint.concat('/').concat(value.id);
+      const uri = descriptor.endpoint.concat('/').concat(value.id);
       await fetch(uri, {method: 'DELETE'})
         .then(v => v.text())
         .then(r => resourceCodec.decode(r));
