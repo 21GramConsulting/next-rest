@@ -8,6 +8,7 @@ import fetch from '#fetch';
 import {ClientDescriptor} from '#ClientDescriptor';
 import createDeletion from '#clientAction/createDeletion';
 import createInsertion from '#clientAction/createInsertion';
+import createRetrieval from '#clientAction/createRetrieval';
 
 export function createHook<
   ID extends string,
@@ -19,6 +20,9 @@ export function createHook<
   const queryCodec = urlSearchParams(descriptor.query);
   const resourceCodec = json.optional(descriptor.codec);
   const resourceSetCodec = json.set(descriptor.codec);
+  const write = createInsertion(descriptor);
+  const remove = createDeletion(descriptor);
+  const retrieval = createRetrieval(descriptor);
 
   function useHook(
     selection: ID,
@@ -45,9 +49,6 @@ export function createHook<
     const {data, error, isValidating} = useSWR(key, outputReader, swrConfig);
 
     const output = isValidating ? undefined : error ?? data ?? null;
-
-    const write = createInsertion(descriptor);
-    const remove = createDeletion(descriptor);
 
     return [output, write, remove];
   }
