@@ -1,6 +1,5 @@
 import {Codec} from '@21gram-consulting/ts-codec';
 import {NextApiRequest, NextApiResponse} from 'next';
-import {CancellablePromise} from 'real-cancellable-promise';
 
 export type UpdateHandler<Resource, ID> = (
   record: Resource,
@@ -8,4 +7,4 @@ export type UpdateHandler<Resource, ID> = (
   id: ID,
   request: NextApiRequest,
   response: NextApiResponse
-) => CancellablePromise<unknown>;
+) => Promise<unknown>;
