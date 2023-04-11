@@ -17,6 +17,23 @@ export type ClientDescriptor<
   requestInit?: RequestInit;
 } & (Queryable<Query> | {});
 
+/**
+ * @summary
+ * A convenience function for creating a client descriptor.
+ * @description
+ * This function is useful for creating a client descriptor in a type-safe manner.
+ * It helps you avoid the need to explicitly type the descriptor, which is admittedly a bit verbose.
+ * @param descriptor - The descriptor to create.
+ * @returns The descriptor, unaltered.
+ */
+export const clientDescriptor = <
+  ID extends string,
+  Resource extends Identifiable<ID>,
+  Query
+>(
+  descriptor: ClientDescriptor<ID, Resource, Query>
+): ClientDescriptor<ID, Resource, Query> => descriptor;
+
 export type Queryable<Query> = {query: RecordShape<Query>};
 
 export const isQueryable = <Query>(value: any): value is Queryable<Query> => {
