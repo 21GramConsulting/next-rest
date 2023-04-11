@@ -10,7 +10,7 @@ import {Codec, RecordShape, isCodec} from '@21gram-consulting/ts-codec';
 export type ClientDescriptor<
   ID extends string,
   Resource extends Identifiable<ID>,
-  Query
+  Query = never
 > = {
   endpoint: string;
   codec: Codec<Resource>;
@@ -29,7 +29,7 @@ export type ClientDescriptor<
 export const clientDescriptor = <
   ID extends string,
   Resource extends Identifiable<ID>,
-  Query
+  Query = never
 >(
   descriptor: ClientDescriptor<ID, Resource, Query>
 ): ClientDescriptor<ID, Resource, Query> => descriptor;

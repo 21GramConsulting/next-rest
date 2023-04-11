@@ -10,7 +10,7 @@ import createRetrieval from '#clientAction/createRetrieval';
 export function createHook<
   ID extends string,
   Resource extends Identifiable<ID>,
-  Query
+  Query = never
 >(
   descriptor: ClientDescriptor<ID, Resource, Query>
 ): UseHook<ID, Resource, Query> {
