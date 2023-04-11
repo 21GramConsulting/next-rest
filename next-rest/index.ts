@@ -9,6 +9,7 @@ export * from './FetchRequest';
 export * from './Identifiable';
 export * from './Identifier';
 export * from './connector';
+export * from './ClientDescriptor';
 
 export * from './description';
 
