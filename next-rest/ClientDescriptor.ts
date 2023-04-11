@@ -1,5 +1,5 @@
 import {Identifiable} from '#Identifiable';
-import {Codec, RecordShape} from '@21gram-consulting/ts-codec';
+import {Codec, RecordShape, isCodec} from '@21gram-consulting/ts-codec';
 
 /**
  * @summary
@@ -14,6 +14,12 @@ export type ClientDescriptor<
 > = {
   endpoint: string;
   codec: Codec<Resource>;
-  query: RecordShape<Query>;
   requestInit?: RequestInit;
+} & (Queryable<Query> | {});
+
+export type Queryable<Query> = {query: RecordShape<Query>};
+
+export const isQueryable = <Query>(value: any): value is Queryable<Query> => {
+  if (typeof value !== 'object' || value === null) return false;
+  return Object.keys(value).every(key => isCodec(value[key]));
 };

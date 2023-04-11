@@ -65,7 +65,7 @@
     "typescript": "^5.0.2"
   },
   "peerDependencies": {
-    "@21gram-consulting/ts-codec": "^1.1.0",
+    "@21gram-consulting/ts-codec": "^1.2.0",
     "next": "^12.3.4",
     "swr": "^1.0.0 || ^2.0.0"
   },
