@@ -11,8 +11,8 @@
       "ES2021",
       "DOM"
     ],
-    "module": "ESNext",
     "rootDir": ".",
+    "module": "ESNext",
     "moduleResolution": "nodenext",
     "baseUrl": "./",
     "paths": {
