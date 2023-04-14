@@ -94,7 +94,7 @@
       "<rootDir>/test/expect.ts"
     ],
     "moduleNameMapper": {
-      "^#(.*)$": "<rootDir>/useTaskQueue/$1",
+      "^#(.*)$": "<rootDir>/next-rest/$1",
       "^!(.*)$": "<rootDir>/test/$1",
       "^@21gram-consulting/next-rest": "<rootDir>/next-rest/index.ts"
     },
