@@ -33,6 +33,10 @@
     {
       "name": "Zsigmond Taroczy-Toth",
       "url": "https://github.com/tzsiga"
+    },
+    {
+      "name": "Ronald Legmann",
+      "url": "https://github.com/rlegmann"
     }
   ],
   "license": "MIT",
@@ -44,10 +48,13 @@
   },
   "homepage": "https://github.com/21GramConsulting/next-rest#readme",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.5.0",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
-    "cross-fetch": "^3.1.5",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.4",
@@ -72,13 +79,25 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "globalSetup": "<rootDir>/test/globalSetup.ts",
+    "transform": {
+      "^.+\\.(ts|tsx)?$": [
+        "ts-jest",
+        {
+          "tsconfig": "./test/tsconfig.json"
+        }
+      ]
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/lib/",
+      "<rootDir>/node_modules/"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/expect.ts"
+    ],
     "moduleNameMapper": {
-      "^#(.*)$": "<rootDir>/next-rest/$1",
-      "^!unit/(.*)$": "<rootDir>/test/unit/$1",
-      "^!component/(.*)$": "<rootDir>/test/integration/$1",
-      "^!integration/(.*)$": "<rootDir>/test/integration/$1",
-      "^!system/(.*)$": "<rootDir>/test/system/$1"
+      "^#(.*)$": "<rootDir>/useTaskQueue/$1",
+      "^!(.*)$": "<rootDir>/test/$1",
+      "^@21gram-consulting/next-rest": "<rootDir>/next-rest/index.ts"
     },
     "coverageThreshold": {
       "global": {
@@ -90,6 +109,7 @@
     }
   },
   "dependencies": {
-    "real-cancellable-promise": "^1.1.2"
+    "real-cancellable-promise": "^1.2.0",
+    "cross-fetch": "^3.1.5"
   }
 }

@@ -19,18 +19,12 @@
       "#*": [
         "./next-rest/*"
       ],
-      "!unit/*": [
-        "./test/unit/*"
+      "!*": [
+        "./test/*"
       ],
-      "!component/*": [
-        "./test/component/*"
+      "@21gram-consulting/next-rest": [
+        "./next-rest/index.ts"
       ],
-      "!integration/*": [
-        "./test/integration/*"
-      ],
-      "!system/*": [
-        "./test/system/*"
-      ]
     },
     "resolveJsonModule": true,
     "allowJs": false,
