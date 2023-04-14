@@ -23,7 +23,3 @@ export const isQuery = <ID extends string, Query>(
   const selectionKeys = Object.keys(selection);
   return selectionKeys.every(k => queryKeys.includes(k));
 };
-
-export const isUndefined = <ID, Query>(
-  selection: Selection<ID, Query>
-): selection is ID => typeof selection === 'undefined';
