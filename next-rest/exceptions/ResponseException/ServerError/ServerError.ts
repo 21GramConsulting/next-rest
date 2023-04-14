@@ -1,4 +1,4 @@
-import {ResponseException} from '#exceptions/ResponseException';
+import ResponseException from '../ResponseException';
 
 /**
  * @summary Represents a 5xx Server Error.
