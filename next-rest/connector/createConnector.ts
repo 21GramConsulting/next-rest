@@ -1,6 +1,6 @@
 import {Identifiable} from '#Identifiable';
 import {Connector} from './Connector';
-import {isId, isQueryDefined} from '#Selection';
+import {isId, isQuery} from '#Selection';
 import {ClientDescriptor} from '#ClientDescriptor';
 import createDeletion from '#clientAction/createDeletion';
 import createInsertion from '#clientAction/createInsertion';
@@ -26,7 +26,7 @@ export default function createConnector<
   ): CancellablePromise<Set<Resource>>;
   function connector(arg1?: any): CancellablePromise<any> {
     if (isId(arg1)) return retrieval(arg1);
-    if (isQueryDefined(arg1)) return retrieval(arg1);
+    if (isQuery(arg1, descriptor)) return retrieval(arg1);
     return insertion(arg1);
   }
 
