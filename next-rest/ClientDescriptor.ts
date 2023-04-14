@@ -37,6 +37,8 @@ export const clientDescriptor = <
 export type Queryable<Query> = {query: RecordShape<Query>};
 
 export const isQueryable = <Query>(value: any): value is Queryable<Query> => {
-  if (typeof value !== 'object' || value === null) return false;
-  return Object.keys(value).every(key => isCodec(value[key]));
+  const candidate = value as Queryable<Query>;
+  if (typeof candidate.query !== 'object') return false;
+  if (candidate.query === null) return false;
+  return Object.values(candidate.query).every(isCodec);
 };
