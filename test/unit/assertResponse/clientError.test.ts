@@ -45,10 +45,10 @@ describe('clientError', () => {
     );
   });
 
-  const unknownStatusCodes = Array(500)
+  const unknownStatusCodes = Array(100)
     .fill(0)
-    .map((_, i) => i + 100)
-    .filter(i => i < 400 || i > 451);
+    .map((_, i) => i + 400)
+    .filter(i => i > 451);
 
   it.each(unknownStatusCodes)(
     'should fallback on ClientError on unknown status code',
@@ -56,7 +56,7 @@ describe('clientError', () => {
       const request: FetchRequest = 'https://test.local';
       const response = new Response('', {status});
       expect(() => clientError(request, response)).toThrow(
-        new ClientError('Client Error', request, response)
+        new ClientError('A client error occurred.', request, response)
       );
     }
   );

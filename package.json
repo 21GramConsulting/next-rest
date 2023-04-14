@@ -91,6 +91,7 @@
       "<rootDir>/node_modules/"
     ],
     "setupFilesAfterEnv": [
+      "<rootDir>/test/globalSetup.ts",
       "<rootDir>/test/expect.ts"
     ],
     "moduleNameMapper": {
@@ -109,12 +110,12 @@
   },
   "dependencies": {
     "@21gram-consulting/ts-codec": "^1.2.0",
-    "real-cancellable-promise": "^1.1.2",
-    "cross-fetch": "^3.1.5"
+    "cross-fetch": "^3.1.5",
+    "real-cancellable-promise": "^1.1.2"
   },
   "peerDependencies": {
-    "react": "^16.8.0  || ^17.0.0 || ^18.0.0",
     "next": "^12.3.4 || ^13.0.0",
+    "react": "^16.8.0  || ^17.0.0 || ^18.0.0",
     "swr": "^1.0.0 || ^2.0.0"
   }
 }
