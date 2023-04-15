@@ -102,10 +102,23 @@ describe('handler', () => {
       headers: {'content-type': 'application/json'},
     } as any;
 
-    it.each(combine([readSetable, creatable, updatable, deletable]))(
-      'Should respond with a status 405 when the parameter count is one but it is not a Readable resource',
-      (descriptor: any) => {
-        handler(descriptor)({...request, query: {test: 1}}, mockResponse);
+    describe('single resource resolution', () => {
+      it.each(combine([readSetable, creatable, updatable, deletable]))(
+        'Should respond with a status 405 when the parameter count is one but it is not a Readable resource',
+        (descriptor: any) => {
+          handler(descriptor)({...request, query: {test: 1}}, mockResponse);
+          expect(readHandler).not.toHaveBeenCalled();
+          expect(readSetHandler).not.toHaveBeenCalled();
+          expect(createHandler).not.toHaveBeenCalled();
+          expect(updateHandler).not.toHaveBeenCalled();
+          expect(deleteHandler).not.toHaveBeenCalled();
+          expect(mockResponse.status).toHaveBeenCalledWith(405);
+          expect(mockResponse.end).toHaveBeenCalled();
+        }
+      );
+
+      it('should respond with a status 405 if the resource identifier is multi-chunked but has no items.', () => {
+        handler(readable)({...request, query: {test: []}}, mockResponse);
         expect(readHandler).not.toHaveBeenCalled();
         expect(readSetHandler).not.toHaveBeenCalled();
         expect(createHandler).not.toHaveBeenCalled();
@@ -113,76 +126,88 @@ describe('handler', () => {
         expect(deleteHandler).not.toHaveBeenCalled();
         expect(mockResponse.status).toHaveBeenCalledWith(405);
         expect(mockResponse.end).toHaveBeenCalled();
-      }
-    );
+      });
 
-    it('should respond with a status 405 if the resource identifier is multi-chunked but has no items.', () => {
-      handler(readable)({...request, query: {test: []}}, mockResponse);
-      expect(readHandler).not.toHaveBeenCalled();
-      expect(readSetHandler).not.toHaveBeenCalled();
-      expect(createHandler).not.toHaveBeenCalled();
-      expect(updateHandler).not.toHaveBeenCalled();
-      expect(deleteHandler).not.toHaveBeenCalled();
-      expect(mockResponse.status).toHaveBeenCalledWith(405);
-      expect(mockResponse.end).toHaveBeenCalled();
+      it.each([
+        [1],
+        [true],
+        [null],
+        [undefined],
+        [{}],
+        [() => {}],
+        [Symbol('test')],
+      ])(
+        'should respond with a status 405 if the resource identifier is not a string.',
+        id => {
+          handler(readable)({...request, query: {test: id}}, mockResponse);
+          expect(readHandler).not.toHaveBeenCalled();
+          expect(readSetHandler).not.toHaveBeenCalled();
+          expect(createHandler).not.toHaveBeenCalled();
+          expect(updateHandler).not.toHaveBeenCalled();
+          expect(deleteHandler).not.toHaveBeenCalled();
+          expect(mockResponse.status).toHaveBeenCalledWith(405);
+          expect(mockResponse.end).toHaveBeenCalled();
+        }
+      );
+
+      it.each([
+        [1],
+        [true],
+        [null],
+        [undefined],
+        [{}],
+        [() => {}],
+        [Symbol('test')],
+      ])(
+        'should respond with a status 405 if the resource identifier is multi-chunked and the first chunk is not a string.',
+        id => {
+          handler(readable)({...request, query: {test: [id]}}, mockResponse);
+          expect(readHandler).not.toHaveBeenCalled();
+          expect(readSetHandler).not.toHaveBeenCalled();
+          expect(createHandler).not.toHaveBeenCalled();
+          expect(updateHandler).not.toHaveBeenCalled();
+          expect(deleteHandler).not.toHaveBeenCalled();
+          expect(mockResponse.status).toHaveBeenCalledWith(405);
+          expect(mockResponse.end).toHaveBeenCalled();
+        }
+      );
+
+      it('should return the read result.', async () => {
+        const expectedResult = {};
+        readHandler.mockResolvedValue(expectedResult);
+        const mockRequest = {...request, query: {test: '1'}};
+        const result = await handler(readable)(mockRequest, mockResponse);
+        expect(readHandler).toHaveBeenCalledWith(
+          coded.codec,
+          '1',
+          mockRequest,
+          mockResponse
+        );
+        expect(result).toBe(expectedResult);
+      });
     });
 
-    it.each([
-      [1],
-      [true],
-      [null],
-      [undefined],
-      [{}],
-      [() => {}],
-      [Symbol('test')],
-    ])(
-      'should respond with a status 405 if the resource identifier is not a string.',
-      id => {
-        handler(readable)({...request, query: {test: id}}, mockResponse);
-        expect(readHandler).not.toHaveBeenCalled();
-        expect(readSetHandler).not.toHaveBeenCalled();
-        expect(createHandler).not.toHaveBeenCalled();
-        expect(updateHandler).not.toHaveBeenCalled();
-        expect(deleteHandler).not.toHaveBeenCalled();
-        expect(mockResponse.status).toHaveBeenCalledWith(405);
-        expect(mockResponse.end).toHaveBeenCalled();
-      }
-    );
-
-    it.each([
-      [1],
-      [true],
-      [null],
-      [undefined],
-      [{}],
-      [() => {}],
-      [Symbol('test')],
-    ])(
-      'should respond with a status 405 if the resource identifier is multi-chunked and the first chunk is not a string.',
-      id => {
-        handler(readable)({...request, query: {test: [id]}}, mockResponse);
-        expect(readHandler).not.toHaveBeenCalled();
-        expect(readSetHandler).not.toHaveBeenCalled();
-        expect(createHandler).not.toHaveBeenCalled();
-        expect(updateHandler).not.toHaveBeenCalled();
-        expect(deleteHandler).not.toHaveBeenCalled();
-        expect(mockResponse.status).toHaveBeenCalledWith(405);
-        expect(mockResponse.end).toHaveBeenCalled();
-      }
-    );
-
-    it('should return the read result.', async () => {
-      const expectedResult = {};
-      readHandler.mockResolvedValue(expectedResult);
-      const mockRequest = {...request, query: {test: '1'}};
-      const result = await handler(readable)(mockRequest, mockResponse);
-      expect(readHandler).toHaveBeenCalledWith(
-        coded.codec,
-        '1',
-        mockRequest,
-        mockResponse
+    describe('resource set resolution', () => {
+      it.each(
+        permute(combine([readable, creatable, updatable, deletable]), [
+          {},
+          {a: 1},
+          {a: 1, b: 5},
+          {a: 1, b: 5, c: 7},
+        ])
+      )(
+        'Should respond with a status 405 when the parameter is not a single id but it is not a ReadSetable resource',
+        (descriptor: any, query) => {
+          handler(descriptor)({...request, query}, mockResponse);
+          expect(readHandler).not.toHaveBeenCalled();
+          expect(readSetHandler).not.toHaveBeenCalled();
+          expect(createHandler).not.toHaveBeenCalled();
+          expect(updateHandler).not.toHaveBeenCalled();
+          expect(deleteHandler).not.toHaveBeenCalled();
+          expect(mockResponse.status).toHaveBeenCalledWith(405);
+          expect(mockResponse.end).toHaveBeenCalled();
+        }
       );
-      expect(result).toBe(expectedResult);
     });
   });
 });
