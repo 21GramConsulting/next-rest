@@ -1,6 +1,6 @@
 {
   "name": "@21gram-consulting/next-rest",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "21Gram Consulting's Next REST library provides a convenience API to create RESTful NextJS API handlers and client interfaces for them.",
   "keywords": [
     "NextJS",
