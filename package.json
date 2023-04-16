@@ -8,7 +8,7 @@
     "API",
     "client",
     "react",
-    "vercel",
+    "vercel"
   ],
   "main": "lib/next-rest/index.js",
   "types": "lib/next-rest/index.d.ts",
