@@ -1,9 +1,14 @@
 {
   "name": "@21gram-consulting/next-rest",
-  "version": "1.0.0",
-  "description": "TBD",
+  "version": "0.1.0",
+  "description": "21Gram Consulting's Next REST library provides a convenience API to create RESTful NextJS API handlers and client interfaces for them.",
   "keywords": [
-    "TBD"
+    "NextJS",
+    "REST",
+    "API",
+    "client",
+    "react",
+    "vercel",
   ],
   "main": "lib/next-rest/index.js",
   "types": "lib/next-rest/index.d.ts",
