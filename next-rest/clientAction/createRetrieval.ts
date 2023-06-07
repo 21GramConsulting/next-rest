@@ -6,6 +6,11 @@ import {isId} from '#Selection';
 import {json, urlSearchParams} from '@21gram-consulting/ts-codec';
 import {BadRequest} from '#exceptions';
 
+export type Key<ID extends string, Resource extends Identifiable<ID>, Query> = {
+  descriptor: ClientDescriptor<ID, Resource, Query>;
+  filter: ID | Query;
+};
+
 export default function createRetrieval<
   ID extends string,
   Resource extends Identifiable<ID>,
