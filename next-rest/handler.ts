@@ -22,10 +22,10 @@ export const handler: Handler = description => async (request, response) => {
     return response.status(400).end();
   if (!isHttpMethod(request.method)) return response.status(405).end();
 
-  const parameterCount = Object.keys(request.query).length;
+  const isSingular = 'id' in request.query;
 
   if (request.method === 'GET') {
-    if (parameterCount === 1) {
+    if (isSingular) {
       if (!isReadable(description))
         return unsupportedMethod(response, 'Resource has no read api.');
       const id = getIdentifier(description, request);
@@ -33,7 +33,8 @@ export const handler: Handler = description => async (request, response) => {
         return unsupportedMethod(
           response,
           'Expected a resource identifier.',
-          id
+          id,
+          request.query
         );
       return await description.read(description.codec, id, request, response);
     }
@@ -52,11 +53,11 @@ export const handler: Handler = description => async (request, response) => {
   }
 
   if (request.method === 'DELETE') {
-    if (parameterCount !== 1)
+    if (!isSingular)
       return unsupportedMethod(
         response,
         "Can't delete resource, due to the number of parameters received.",
-        parameterCount
+        request.query
       );
     if (!isDeletable(description))
       return unsupportedMethod(response, 'Resource has no delete api.');
@@ -73,11 +74,11 @@ export const handler: Handler = description => async (request, response) => {
     );
 
   if (request.method === 'POST') {
-    if (parameterCount !== 0)
+    if (Object.keys(request.query).length > 0)
       return unsupportedMethod(
         response,
         "Can't create resource, due to the number of parameters received.",
-        parameterCount
+        request.query
       );
     if (!isCreatable(description))
       return unsupportedMethod(response, 'Resource has no create api.');
@@ -90,11 +91,11 @@ export const handler: Handler = description => async (request, response) => {
   }
 
   if (request.method === 'PUT') {
-    if (parameterCount !== 1)
+    if (!isSingular)
       return unsupportedMethod(
         response,
         "Can't update resource, due to the number of parameters received",
-        parameterCount
+        request.query
       );
     if (!isUpdatable(description))
       return unsupportedMethod(response, 'Resource has no update api.');
@@ -130,7 +131,7 @@ const getIdentifier = <R, I, Q>(
   request: NextApiRequest
 ): Identifier<I> | undefined => {
   // TODO: ID validator could be injected here
-  // TODO: Revisit & redesign. Either we were drunk or the Next API changed here.
+  // TODO: Revisit & redesign. Either we were drunk or the Next API changed here. | P.S.: The API changed.
   let id: unknown = request.query[description.idParameterName];
   if (Array.isArray(id)) {
     if (!id[0]) return;
