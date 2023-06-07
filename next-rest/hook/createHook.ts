@@ -54,7 +54,11 @@ export function createHook<
   ): Hook<ID, Set<Resource>>;
   function useHook(filter: any, conf?: SWRConfiguration): any {
     const key: Key<ID, Resource, Query> = {descriptor, filter};
-    const {data, error, isValidating} = useSWR(key, retrieval, conf);
+    const {data, error, isValidating} = useSWR(
+      filter ? key : undefined,
+      retrieval,
+      conf
+    );
     const output = isValidating ? undefined : error ?? data ?? null;
     return [output, write, remove];
   }
