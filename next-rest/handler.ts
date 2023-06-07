@@ -2,6 +2,7 @@ import {
   Description,
   IdentityAware,
   isDeletable,
+  isIdentityAware,
   isReadable,
   isReadSetable,
   isUpdatable,
@@ -22,7 +23,11 @@ export const handler: Handler = description => async (request, response) => {
     return response.status(400).end();
   if (!isHttpMethod(request.method)) return response.status(405).end();
 
-  const isSingular = 'id' in request.query;
+  const queryKeys = Object.keys(request.query);
+  const isSingular =
+    isIdentityAware(description) &&
+    queryKeys.length === 1 &&
+    queryKeys[0] === description.idParameterName;
 
   if (request.method === 'GET') {
     if (isSingular) {

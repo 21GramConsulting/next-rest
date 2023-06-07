@@ -106,7 +106,10 @@ describe('handler', () => {
       it.each(combine([readSetable, creatable, updatable, deletable]))(
         'Should respond with a status 405 when the parameter count is one but it is not a Readable resource',
         (descriptor: any) => {
-          handler(descriptor)({...request, query: {test: 1}}, mockResponse);
+          handler({...descriptor, idParameterName: 'test'})(
+            {...request, query: {test: 1}},
+            mockResponse
+          );
           expect(readHandler).not.toHaveBeenCalled();
           expect(readSetHandler).not.toHaveBeenCalled();
           expect(createHandler).not.toHaveBeenCalled();

@@ -2,7 +2,7 @@ import {ReadHandler} from '#handlers/ReadHandler';
 import {Identifier} from '#Identifier';
 import {Coded} from './Coded';
 import {Description} from './Description';
-import {IdentityAware} from './Identified';
+import {IdentityAware} from './IdentityAware';
 
 /**
  * @summary
