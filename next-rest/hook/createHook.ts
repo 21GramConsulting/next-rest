@@ -44,8 +44,14 @@ export function createHook<
   const remove = createDeletion(descriptor);
   const retrieval = createRetrieval(descriptor);
 
-  function useHook(id: ID, conf?: SWRConfiguration): Hook<ID, Resource>;
-  function useHook(q?: Query, conf?: SWRConfiguration): Hook<ID, Set<Resource>>;
+  function useHook(
+    id: ID | undefined,
+    conf?: SWRConfiguration
+  ): Hook<ID, Resource>;
+  function useHook(
+    q?: Query | undefined,
+    conf?: SWRConfiguration
+  ): Hook<ID, Set<Resource>>;
   function useHook(filter: any, conf?: SWRConfiguration): any {
     const key: Key<ID, Resource, Query> = {descriptor, filter};
     const {data, error, isValidating} = useSWR(key, retrieval, conf);

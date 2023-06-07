@@ -18,18 +18,16 @@ export default function createRetrieval<
 >(
   descriptor: ClientDescriptor<ID, Resource, Query>
 ): {
-  (selection: ID | undefined): CancellablePromise<Resource>;
-  (selection: Query | undefined): CancellablePromise<Set<Resource>>;
+  (selection: ID): CancellablePromise<Resource>;
+  (selection: Query): CancellablePromise<Set<Resource>>;
 } {
   const queryCodec = isQueryable(descriptor)
     ? urlSearchParams(descriptor.query)
     : undefined;
   const resourceSetCodec = json.set(descriptor.codec);
 
-  function retrieval(selection: ID | undefined): CancellablePromise<Resource>;
-  function retrieval(
-    selection: Query | undefined
-  ): CancellablePromise<Set<Resource>>;
+  function retrieval(selection: ID): CancellablePromise<Resource>;
+  function retrieval(selection: Query): CancellablePromise<Set<Resource>>;
   function retrieval(arg1: any): CancellablePromise<any> {
     let uri = descriptor.endpoint;
     if (isId(arg1)) uri = uri.concat('/').concat(arg1);
