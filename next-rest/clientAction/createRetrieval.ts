@@ -68,11 +68,6 @@ export default function createRetrieval<
       return CancellablePromise.reject(error);
     }
 
-    console.log('\n\n\n******\n\n\n');
-    console.log('arg1', arg1);
-    console.log('uri', uri);
-    console.log('\n\n\n******\n\n\n');
-
     return fetch(uri, {...descriptor.requestInit, method: 'GET'})
       .then(r => r.text())
       .then(r =>
